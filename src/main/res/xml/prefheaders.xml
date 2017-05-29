@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+ This file was either copied or modified from https://github.com/QuantumBadger/RedReader
+ under the Free Software Foundation General Public License version 3*/
+-->
+
+<preference-headers xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <header
+            android:fragment="com.wellsandwhistles.android.redditsp.settings.SettingsFragment"
+            android:title="@string/prefs_category_appearance">
+        <extra android:name="panel" android:value="appearance" />
+    </header>
+
+    <header
+            android:fragment="com.wellsandwhistles.android.redditsp.settings.SettingsFragment"
+            android:title="@string/prefs_category_behaviour">
+        <extra android:name="panel" android:value="behaviour" />
+    </header>
+
+    <header
+            android:fragment="com.wellsandwhistles.android.redditsp.settings.SettingsFragment"
+            android:title="@string/prefs_category_cache">
+        <extra android:name="panel" android:value="cache" />
+    </header>
+
+    <header
+            android:fragment="com.wellsandwhistles.android.redditsp.settings.SettingsFragment"
+            android:title="@string/prefs_category_menus">
+        <extra android:name="panel" android:value="menus" />
+    </header>
+
+</preference-headers>

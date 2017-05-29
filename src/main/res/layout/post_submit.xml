@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+ This file was either copied or modified from https://github.com/QuantumBadger/RedReader
+ under the Free Software Foundation General Public License version 3*/
+-->
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+
+    <Spinner android:id="@+id/post_submit_type"
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content"
+             android:layout_marginLeft="10dp"
+             android:layout_marginRight="10dp"
+             android:layout_marginTop="2dp"
+             android:layout_marginBottom="2dp"/>
+
+    <Spinner android:id="@+id/post_submit_username"
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content"
+             android:layout_marginLeft="10dp"
+             android:layout_marginRight="10dp"
+             android:layout_marginTop="2dp"
+             android:layout_marginBottom="2dp"/>
+
+    <EditText android:id="@+id/post_submit_subreddit"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:layout_margin="10dp"
+              android:singleLine="true"
+              android:scrollHorizontally="true"
+              android:scrollbars="none"
+              android:inputType="textNoSuggestions"
+              android:hint="@string/post_submit_subreddit_hint"/>
+
+    <EditText android:id="@+id/post_submit_title"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:layout_margin="10dp"
+              android:singleLine="true"
+              android:scrollHorizontally="true"
+              android:scrollbars="none"
+              android:inputType="textCapSentences"
+              android:hint="@string/post_submit_title_hint"/>
+
+    <EditText android:id="@+id/post_submit_body"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:layout_margin="10dp"
+              android:singleLine="false"
+              android:scrollHorizontally="false"
+              android:scrollbars="none"
+              android:inputType="textCapSentences|textMultiLine"/>
+
+	<CheckBox android:id="@+id/post_submit_send_replies_to_inbox"
+			  android:layout_width="match_parent"
+			  android:layout_height="wrap_content"
+			  android:layout_margin="10dp"
+			  android:checked="true"
+			  android:text="@string/send_replies_to_inbox"/>
+
+</LinearLayout>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+ This file was either copied or modified from https://github.com/QuantumBadger/RedReader
+ under the Free Software Foundation General Public License version 3*/
+-->
+
+<TextView
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="match_parent"
+	android:layout_height="wrap_content"
+	android:clickable="false"
+	android:focusable="false"
+	android:paddingBottom="2dp"
+	android:paddingLeft="4dp"
+	android:paddingRight="4dp"
+	android:paddingTop="26dp"
+	android:textColor="?srListHeaderTextCol"
+	android:textSize="16sp"/>

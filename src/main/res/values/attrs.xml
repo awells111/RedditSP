@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+		
+<!--
+ This file was either copied or modified from https://github.com/QuantumBadger/RedReader
+ under the Free Software Foundation General Public License version 3*/
+-->
+
+<resources>
+
+	<attr name="srActionBarPopupThemeStyle" format="reference" />
+
+    <attr name="srListDividerCol" format="color" />
+    <attr name="srListHeaderTextCol" format="color" />
+    <attr name="srListHeaderLineCol" format="color" />
+    <attr name="srListSubtitleCol" format="color" />
+
+	<attr name="srPostListHeaderBackgroundCol" format="color"/>
+
+	<attr name="srIndentBackgroundCol" format="color" />
+	<attr name="srIndentLineCol" format="color" />
+
+    <attr name="srLoadingRingForegroundCol" />
+    <attr name="srLoadingRingBackgroundCol" />
+
+    <attr name="srListItemBackgroundCol" format="color" />
+    <attr name="srListItemBackgroundHighlightCol" format="color" />
+    <attr name="srListBackgroundCol" format="color" />
+
+    <attr name="srPostTitleCol" format="color" />
+    <attr name="srPostTitleReadCol" format="color" />
+    <attr name="srPostSubtitleCol" format="color" />
+    <attr name="srPostSubtitleBoldCol" format="color" />
+    <attr name="srPostSubtitleUpvoteCol" format="color" />
+    <attr name="srPostSubtitleDownvoteCol" format="color" />
+    <attr name="srPostCommentsButtonBackCol" format="color" />
+    <attr name="srPostCommentsButtonTextCol" format="color" />
+    <attr name="srPostThumbnailBackground" format="color" />
+    <attr name="srPostFlingTextCol" format="color" />
+    <attr name="srPostCommentsButtonHighlightCol" format="color" />
+    <attr name="srFlairBackCol" format="color" />
+    <attr name="srFlairTextCol" format="color" />
+    <attr name="srGoldBackCol" format="color" />
+    <attr name="srGoldTextCol" format="color" />
+
+    <attr name="srCommentBodyCol" format="color" />
+    <attr name="srCommentHeaderCol" format="color" />
+    <attr name="srCommentHeaderBoldCol" format="color" />
+    <attr name="srCommentHeaderAuthorCol" format="color" />
+    <attr name="srCommentSpecificThreadHeaderBackCol" format="color" />
+    <attr name="srCommentSpecificThreadHeaderTextCol" format="color" />
+
+    <attr name="srMainTextCol" format="color" />
+	<attr name="srSubTextCol" format="color" />
+
+    <!-- icons -->
+
+    <attr name="srIconComments" format="reference" />
+    <attr name="srIconPerson" format="reference" />
+    <attr name="srIconAdd" format="reference" />
+    <attr name="srIconCross" format="reference" />
+    <attr name="srIconEnvOpen" format="reference" />
+    <attr name="srIconInfo" format="reference" />
+    <attr name="srIconRefresh" format="reference" />
+    <attr name="srIconReply" format="reference" />
+    <attr name="srIconSend" format="reference" />
+    <attr name="srIconShare" format="reference" />
+    <attr name="srIconSort" format="reference" />
+    <attr name="srIconStarFilled" format="reference" />
+    <attr name="srIconDownvote" format="reference" />
+    <attr name="srIconUpvote" format="reference" />
+    <attr name="srIconFfLeft" format="reference" />
+    <attr name="srIconFfRight" format="reference" />
+    <attr name="srIconTick" format="reference" />
+    <attr name="srIconLink" format="reference" />
+    <attr name="srIconTime" format="reference" />
+    <attr name="srIconForward" format="reference" />
+
+</resources>

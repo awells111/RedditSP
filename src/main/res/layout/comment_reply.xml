@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+ This file was either copied or modified from https://github.com/QuantumBadger/RedReader
+ under the Free Software Foundation General Public License version 3*/
+-->
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+
+    <Spinner android:id="@+id/comment_reply_username"
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content"
+             android:layout_margin="10dp"/>
+
+    <EditText android:id="@+id/comment_reply_text"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:layout_margin="10dp"
+              android:singleLine="false"
+              android:scrollHorizontally="false"
+              android:scrollbars="none"
+              android:inputType="textCapSentences|textMultiLine"/>
+
+	<TextView
+			android:id="@+id/comment_parent_text"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:layout_margin="10dp"
+			android:textIsSelectable="true"/>
+
+</LinearLayout>

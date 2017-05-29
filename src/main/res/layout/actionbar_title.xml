@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+ This file was either copied or modified from https://github.com/QuantumBadger/RedReader
+ under the Free Software Foundation General Public License version 3*/
+-->
+
+<!--Used in BaseActivity-->
+<RelativeLayout
+		android:id="@+id/actionbar_title_outer"
+		xmlns:android="http://schemas.android.com/apk/res/android"
+		android:clickable="true"
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
+		android:paddingLeft="8dp"
+		android:paddingRight="16dp"
+		android:gravity="center_vertical"
+		android:background="@drawable/sr_actionbar_selector">
+
+	<ImageView
+			android:id="@+id/actionbar_title_back_image"
+			android:layout_margin="8dp"
+			android:layout_alignParentLeft="true"
+			android:layout_centerVertical="true"
+			android:src="@drawable/ic_action_back_dark"
+			android:layout_width="24dp"
+			android:layout_height="24dp"
+			android:scaleType="fitCenter"/>
+
+	<TextView
+			android:id="@+id/actionbar_title_text"
+			android:maxLines="1"
+			android:ellipsize="end"
+			android:scrollHorizontally="true"
+			android:singleLine="true"
+			style="@style/SR.Toolbar.TitleText"
+			android:layout_toRightOf="@id/actionbar_title_back_image"
+			android:layout_centerVertical="true"
+			android:gravity="center_vertical"
+			android:paddingLeft="8dp"
+			android:layout_width="wrap_content"
+			android:layout_height="match_parent" />
+</RelativeLayout>
