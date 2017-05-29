@@ -30,7 +30,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
-import static com.wellsandwhistles.android.redditsp.http.HTTPBackend.PostField;
+import static com.wellsandwhistles.android.redditsp.common.HTTPBackend.PostField;
 
 public final class RedditAPI {
 

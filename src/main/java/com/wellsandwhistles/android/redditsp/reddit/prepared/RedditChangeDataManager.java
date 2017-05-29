@@ -528,6 +528,7 @@ public final class RedditChangeDataManager {
 		}
 	}
 
+//	Removes the cached data that is older than the amount that we set
 	private void prune() {
 
 		final long now = System.currentTimeMillis();

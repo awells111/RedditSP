@@ -392,7 +392,7 @@ public class RedditAPICommentAction {
 						if(t != null) t.printStackTrace();
 
 						final SRError error = General.getGeneralErrorForFailure(context, type, t, status, null);
-						LinkHandler.UI_THREAD_HANDLER.post(new Runnable() {
+						General.UI_THREAD_HANDLER.post(new Runnable() {
 							@Override
 							public void run() {
 								General.showResultDialog(activity, error);
@@ -405,7 +405,7 @@ public class RedditAPICommentAction {
 						revertOnFailure();
 
 						final SRError error = General.getGeneralErrorForFailure(context, type);
-						LinkHandler.UI_THREAD_HANDLER.post(new Runnable() {
+						General.UI_THREAD_HANDLER.post(new Runnable() {
 							@Override
 							public void run() {
 								General.showResultDialog(activity, error);

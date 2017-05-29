@@ -12,7 +12,7 @@ import com.wellsandwhistles.android.redditsp.activities.BugReportActivity;
 import com.wellsandwhistles.android.redditsp.cache.downloadstrategy.DownloadStrategy;
 import com.wellsandwhistles.android.redditsp.common.PrioritisedCachedThreadPool;
 import com.wellsandwhistles.android.redditsp.common.SRError;
-import com.wellsandwhistles.android.redditsp.http.HTTPBackend;
+import com.wellsandwhistles.android.redditsp.common.HTTPBackend;
 import com.wellsandwhistles.android.redditsp.jsonwrap.JsonValue;
 
 import java.lang.annotation.Retention;

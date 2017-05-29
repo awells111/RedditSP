@@ -264,7 +264,7 @@ public class PostListingFragment extends SRFragment
 							@Override
 							public void onRequestFailed(SubredditRequestFailure failureReason) {
 								// Ignore
-								LinkHandler.UI_THREAD_HANDLER.post(new Runnable() {
+								General.UI_THREAD_HANDLER.post(new Runnable() {
 									@Override
 									public void run() {
 										CacheManager.getInstance(context).makeRequest(mRequest);
@@ -274,7 +274,7 @@ public class PostListingFragment extends SRFragment
 
 							@Override
 							public void onRequestSuccess(final RedditSubreddit result, final long timeCached) {
-								LinkHandler.UI_THREAD_HANDLER.post(new Runnable() {
+								General.UI_THREAD_HANDLER.post(new Runnable() {
 									@Override
 									public void run() {
 										mSubreddit = result;
@@ -512,7 +512,7 @@ public class PostListingFragment extends SRFragment
 		@Override
 		protected void onFailure(final @CacheRequest.RequestFailureType int type, final Throwable t, final Integer status, final String readableMessage) {
 
-			LinkHandler.UI_THREAD_HANDLER.post(new Runnable() {
+			General.UI_THREAD_HANDLER.post(new Runnable() {
 				@Override
 				public void run() {
 
@@ -552,7 +552,7 @@ public class PostListingFragment extends SRFragment
 
 			// TODO pref (currently 10 mins)
 			if (firstDownload && fromCache && SRTime.since(timestamp) > 10 * 60 * 1000) {
-				LinkHandler.UI_THREAD_HANDLER.post(new Runnable() {
+				General.UI_THREAD_HANDLER.post(new Runnable() {
 					@Override
 					public void run() {
 
@@ -792,7 +792,7 @@ public class PostListingFragment extends SRFragment
 					}
 				}
 
-				LinkHandler.UI_THREAD_HANDLER.post(new Runnable() {
+				General.UI_THREAD_HANDLER.post(new Runnable() {
 					@Override
 					public void run() {
 

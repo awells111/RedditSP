@@ -23,7 +23,6 @@ import com.wellsandwhistles.android.redditsp.account.RedditAccountChangeListener
 import com.wellsandwhistles.android.redditsp.account.RedditAccountManager;
 import com.wellsandwhistles.android.redditsp.adapters.AccountListAdapter;
 import com.wellsandwhistles.android.redditsp.common.General;
-import com.wellsandwhistles.android.redditsp.common.LinkHandler;
 import com.wellsandwhistles.android.redditsp.common.SRError;
 import com.wellsandwhistles.android.redditsp.reddit.api.RedditOAuth;
 
@@ -79,7 +78,7 @@ public class AccountListDialog extends AppCompatDialogFragment
 				new RedditOAuth.LoginListener() {
 					@Override
 					public void onLoginSuccess(final RedditAccount account) {
-						LinkHandler.UI_THREAD_HANDLER.post(new Runnable() {
+						General.UI_THREAD_HANDLER.post(new Runnable() {
 							@Override
 							public void run() {
 								General.safeDismissDialog(progressDialog);
@@ -104,7 +103,7 @@ public class AccountListDialog extends AppCompatDialogFragment
 
 					@Override
 					public void onLoginFailure(final RedditOAuth.LoginError error, final SRError details) {
-						LinkHandler.UI_THREAD_HANDLER.post(new Runnable() {
+						General.UI_THREAD_HANDLER.post(new Runnable() {
 							@Override
 							public void run() {
 								General.safeDismissDialog(progressDialog);
@@ -145,7 +144,7 @@ public class AccountListDialog extends AppCompatDialogFragment
 
 	@Override
 	public void onRedditAccountChanged() {
-		LinkHandler.UI_THREAD_HANDLER.post(new Runnable() {
+		General.UI_THREAD_HANDLER.post(new Runnable() {
 			@Override
 			public void run() {
 				rv.setAdapter(new AccountListAdapter(mActivity, AccountListDialog.this));

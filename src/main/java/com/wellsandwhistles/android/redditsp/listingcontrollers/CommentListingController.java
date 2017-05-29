@@ -18,7 +18,6 @@ import com.wellsandwhistles.android.redditsp.reddit.url.UserCommentListingURL;
 
 import java.util.UUID;
 
-// TODO add notification/header for abnormal sort order
 public class CommentListingController {
 
 	private CommentListingURL mUrl;

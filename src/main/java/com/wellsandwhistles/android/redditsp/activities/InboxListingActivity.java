@@ -25,7 +25,6 @@ import com.wellsandwhistles.android.redditsp.cache.CacheRequest;
 import com.wellsandwhistles.android.redditsp.cache.downloadstrategy.DownloadStrategyAlways;
 import com.wellsandwhistles.android.redditsp.common.Constants;
 import com.wellsandwhistles.android.redditsp.common.General;
-import com.wellsandwhistles.android.redditsp.common.LinkHandler;
 import com.wellsandwhistles.android.redditsp.common.PrefsUtility;
 import com.wellsandwhistles.android.redditsp.common.SRError;
 import com.wellsandwhistles.android.redditsp.common.SRThemeAttributes;
@@ -210,7 +209,7 @@ public final class InboxListingActivity extends BaseActivity {
 				if(loadingView != null) loadingView.setDone(R.string.download_failed);
 
 				final SRError error = General.getGeneralErrorForFailure(context, type, t, status, url.toString());
-				LinkHandler.UI_THREAD_HANDLER.post(new Runnable() {
+				General.UI_THREAD_HANDLER.post(new Runnable() {
 					@Override
 					public void run() {
 						notifications.addView(new ErrorView(InboxListingActivity.this, error));
@@ -235,7 +234,7 @@ public final class InboxListingActivity extends BaseActivity {
 				// TODO pref (currently 10 mins)
 				// TODO xml
 				if(fromCache && SRTime.since(timestamp) > 10 * 60 * 1000) {
-					LinkHandler.UI_THREAD_HANDLER.post(new Runnable() {
+					General.UI_THREAD_HANDLER.post(new Runnable() {
 						@Override
 						public void run() {
 							final TextView cacheNotif = new TextView(context);
@@ -347,7 +346,7 @@ public final class InboxListingActivity extends BaseActivity {
 							protected void onFailure(final @CacheRequest.RequestFailureType int type, final Throwable t, final Integer status, final String readableMessage) {
 								final SRError error = General.getGeneralErrorForFailure(context, type, t, status,
 										"Reddit API action: Mark all as Read");
-								LinkHandler.UI_THREAD_HANDLER.post(new Runnable() {
+								General.UI_THREAD_HANDLER.post(new Runnable() {
 									@Override
 									public void run() {
 										General.showResultDialog(InboxListingActivity.this, error);
@@ -359,7 +358,7 @@ public final class InboxListingActivity extends BaseActivity {
 							protected void onFailure(final APIFailureType type) {
 
 								final SRError error = General.getGeneralErrorForFailure(context, type);
-								LinkHandler.UI_THREAD_HANDLER.post(new Runnable() {
+								General.UI_THREAD_HANDLER.post(new Runnable() {
 									@Override
 									public void run() {
 										General.showResultDialog(InboxListingActivity.this, error);

@@ -35,8 +35,6 @@ import java.util.regex.Pattern;
 
 public class LinkHandler {
 
-	public static final Handler UI_THREAD_HANDLER = new Handler(Looper.getMainLooper());
-
 	public static final Pattern
 			youtubeDotComPattern = Pattern.compile("^https?://[\\.\\w]*youtube\\.\\w+/.*"),
 			youtuDotBePattern = Pattern.compile("^https?://[\\.\\w]*youtu\\.be/([A-Za-z0-9\\-_]+)(\\?.*|).*"),

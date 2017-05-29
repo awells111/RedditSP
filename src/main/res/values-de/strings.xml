@@ -81,7 +81,7 @@ Thanks to /u/balducien and /u/andiho for this translation!
 
     <string name="pref_cache_precache_images_title">Bilder vorabladen</string>
 
-    <!-- TODO use listpreference instead -->
+
     <string name="pref_cache_precache_images_wifionly_title">Nur im WLAN</string>
 
     <!-- Menu Prefs -->

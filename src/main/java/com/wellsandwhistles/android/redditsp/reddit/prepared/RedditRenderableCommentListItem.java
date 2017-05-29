@@ -8,7 +8,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import com.wellsandwhistles.android.redditsp.common.SRThemeAttributes;
 
-public interface RedditRenderableCommentListItem {
+//todo this is only used in RedditRenderableInboxItem.java.  see if we can consolidate those.
+interface RedditRenderableCommentListItem {
 
 	CharSequence getHeader(
 			final SRThemeAttributes theme,

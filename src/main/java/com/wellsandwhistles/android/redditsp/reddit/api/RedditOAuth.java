@@ -15,7 +15,7 @@ import com.wellsandwhistles.android.redditsp.cache.CacheRequest;
 import com.wellsandwhistles.android.redditsp.common.Constants;
 import com.wellsandwhistles.android.redditsp.common.General;
 import com.wellsandwhistles.android.redditsp.common.SRError;
-import com.wellsandwhistles.android.redditsp.http.HTTPBackend;
+import com.wellsandwhistles.android.redditsp.common.HTTPBackend;
 import com.wellsandwhistles.android.redditsp.jsonwrap.JsonBufferedObject;
 import com.wellsandwhistles.android.redditsp.jsonwrap.JsonValue;
 

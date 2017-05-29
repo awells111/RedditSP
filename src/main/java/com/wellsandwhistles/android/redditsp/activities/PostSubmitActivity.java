@@ -26,7 +26,6 @@ import com.wellsandwhistles.android.redditsp.account.RedditAccountManager;
 import com.wellsandwhistles.android.redditsp.cache.CacheManager;
 import com.wellsandwhistles.android.redditsp.cache.CacheRequest;
 import com.wellsandwhistles.android.redditsp.common.General;
-import com.wellsandwhistles.android.redditsp.common.LinkHandler;
 import com.wellsandwhistles.android.redditsp.common.PrefsUtility;
 import com.wellsandwhistles.android.redditsp.common.SRError;
 import com.wellsandwhistles.android.redditsp.fragments.MarkdownPreviewDialog;
@@ -218,7 +217,7 @@ public class PostSubmitActivity extends BaseActivity {
 				final APIResponseHandler.ActionResponseHandler handler = new APIResponseHandler.ActionResponseHandler(this) {
 					@Override
 					protected void onSuccess() {
-						LinkHandler.UI_THREAD_HANDLER.post(new Runnable() {
+						General.UI_THREAD_HANDLER.post(new Runnable() {
 							@Override
 							public void run() {
 								General.safeDismissDialog(progressDialog);
@@ -238,7 +237,7 @@ public class PostSubmitActivity extends BaseActivity {
 
 						final SRError error = General.getGeneralErrorForFailure(context, type, t, status, null);
 
-						LinkHandler.UI_THREAD_HANDLER.post(new Runnable() {
+						General.UI_THREAD_HANDLER.post(new Runnable() {
 							@Override
 							public void run() {
 								General.showResultDialog(PostSubmitActivity.this, error);
@@ -252,7 +251,7 @@ public class PostSubmitActivity extends BaseActivity {
 
 						final SRError error = General.getGeneralErrorForFailure(context, type);
 
-						LinkHandler.UI_THREAD_HANDLER.post(new Runnable() {
+						General.UI_THREAD_HANDLER.post(new Runnable() {
 							@Override
 							public void run() {
 								General.showResultDialog(PostSubmitActivity.this, error);

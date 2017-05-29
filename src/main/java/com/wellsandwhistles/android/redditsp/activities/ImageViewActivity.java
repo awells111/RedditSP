@@ -132,7 +132,7 @@ public class ImageViewActivity extends BaseActivity implements RedditPostView.Po
 
 						@Override
 						public void onSuccess(final ImgurAPI.AlbumInfo info) {
-							LinkHandler.UI_THREAD_HANDLER.post(new Runnable() {
+							General.UI_THREAD_HANDLER.post(new Runnable() {
 								@Override
 								public void run() {
 									mAlbumInfo = info;
@@ -268,7 +268,7 @@ public class ImageViewActivity extends BaseActivity implements RedditPostView.Po
 
 		if (Constants.Mime.isVideo(mimetype)) {
 
-			LinkHandler.UI_THREAD_HANDLER.post(new Runnable() {
+			General.UI_THREAD_HANDLER.post(new Runnable() {
 				@Override
 				public void run() {
 
@@ -326,7 +326,7 @@ public class ImageViewActivity extends BaseActivity implements RedditPostView.Po
 			});
 		} else if (Constants.Mime.isImageGif(mimetype)) {
 
-			LinkHandler.UI_THREAD_HANDLER.post(new Runnable() {
+			General.UI_THREAD_HANDLER.post(new Runnable() {
 				@Override
 				public void run() {
 
@@ -378,7 +378,7 @@ public class ImageViewActivity extends BaseActivity implements RedditPostView.Po
 				return;
 			}
 
-			LinkHandler.UI_THREAD_HANDLER.post(new Runnable() {
+			General.UI_THREAD_HANDLER.post(new Runnable() {
 				@Override
 				public void run() {
 
@@ -432,7 +432,7 @@ public class ImageViewActivity extends BaseActivity implements RedditPostView.Po
 		if (General.isThisUIThread()) {
 			r.run();
 		} else {
-			LinkHandler.UI_THREAD_HANDLER.post(r);
+			General.UI_THREAD_HANDLER.post(r);
 		}
 	}
 
@@ -591,7 +591,7 @@ public class ImageViewActivity extends BaseActivity implements RedditPostView.Po
 
 					@Override
 					protected void onDownloadNecessary() {
-						LinkHandler.UI_THREAD_HANDLER.post(new Runnable() {
+						General.UI_THREAD_HANDLER.post(new Runnable() {
 							@Override
 							public void run() {
 								progressBar.setVisibility(View.VISIBLE);
@@ -609,7 +609,7 @@ public class ImageViewActivity extends BaseActivity implements RedditPostView.Po
 
 						final SRError error = General.getGeneralErrorForFailure(context, type, t, status, url.toString());
 
-						LinkHandler.UI_THREAD_HANDLER.post(new Runnable() {
+						General.UI_THREAD_HANDLER.post(new Runnable() {
 							@Override
 							public void run() {
 								// TODO handle properly
@@ -625,7 +625,7 @@ public class ImageViewActivity extends BaseActivity implements RedditPostView.Po
 
 					@Override
 					protected void onProgress(final boolean authorizationInProgress, final long bytesRead, final long totalBytes) {
-						LinkHandler.UI_THREAD_HANDLER.post(new Runnable() {
+						General.UI_THREAD_HANDLER.post(new Runnable() {
 							@Override
 							public void run() {
 								progressBar.setVisibility(View.VISIBLE);

@@ -813,7 +813,7 @@ public final class RedditPreparedPost {
 	}
 
 	public void refreshView(final Context context) {
-		LinkHandler.UI_THREAD_HANDLER.post(new Runnable() {
+		General.UI_THREAD_HANDLER.post(new Runnable() {
 			@Override
 			public void run() {
 				rebuildSubtitle(context);
@@ -830,7 +830,7 @@ public final class RedditPreparedPost {
 
 		if(user.isAnonymous()) {
 
-			LinkHandler.UI_THREAD_HANDLER.post(new Runnable() {
+			General.UI_THREAD_HANDLER.post(new Runnable() {
 				@Override
 				public void run() {
 					Toast.makeText(activity, activity.getString(R.string.error_toast_notloggedin), Toast.LENGTH_SHORT).show();
@@ -912,7 +912,7 @@ public final class RedditPreparedPost {
 
 						final SRError error = General.getGeneralErrorForFailure(context, type, t, status,
 								"Reddit API action code: " + action + " " + src.getIdAndType());
-						LinkHandler.UI_THREAD_HANDLER.post(new Runnable() {
+						General.UI_THREAD_HANDLER.post(new Runnable() {
 							@Override
 							public void run() {
 								General.showResultDialog(activity, error);
@@ -925,7 +925,7 @@ public final class RedditPreparedPost {
 						revertOnFailure();
 
 						final SRError error = General.getGeneralErrorForFailure(context, type);
-						LinkHandler.UI_THREAD_HANDLER.post(new Runnable() {
+						General.UI_THREAD_HANDLER.post(new Runnable() {
 							@Override
 							public void run() {
 								General.showResultDialog(activity, error);

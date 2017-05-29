@@ -112,10 +112,12 @@ public class RedditInboxItemView extends LinearLayout {
 		body.getLayoutParams().width = ViewGroup.LayoutParams.MATCH_PARENT;
 	}
 
+	//todo what are we doing with the inbox click and longclick?
 	public void handleInboxClick(AppCompatActivity activity) {
 		if(currentItem != null) currentItem.handleInboxClick(activity);
 	}
 
+	//todo this seems to be the exact same as handleInboxClick which I'm not sure is even doing anything
 	public void handleInboxLongClick(AppCompatActivity activity) {
 		if(currentItem != null) currentItem.handleInboxLongClick(activity);
 	}

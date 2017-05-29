@@ -15,7 +15,6 @@ import android.widget.TextView;
 import com.wellsandwhistles.android.redditsp.R;
 import com.wellsandwhistles.android.redditsp.common.Constants;
 import com.wellsandwhistles.android.redditsp.common.General;
-import com.wellsandwhistles.android.redditsp.common.LinkHandler;
 import com.wellsandwhistles.android.redditsp.common.SRError;
 
 import java.util.LinkedList;
@@ -45,7 +44,7 @@ public class BugReportActivity extends BaseActivity {
 
 		addGlobalError(error);
 
-		LinkHandler.UI_THREAD_HANDLER.post(new Runnable() {
+		General.UI_THREAD_HANDLER.post(new Runnable() {
 			@Override
 			public void run() {
 				final Intent intent = new Intent(context, BugReportActivity.class);

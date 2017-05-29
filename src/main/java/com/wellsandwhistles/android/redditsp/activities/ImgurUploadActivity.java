@@ -26,10 +26,9 @@ import com.wellsandwhistles.android.redditsp.cache.CacheRequest;
 import com.wellsandwhistles.android.redditsp.cache.downloadstrategy.DownloadStrategyAlways;
 import com.wellsandwhistles.android.redditsp.common.Constants;
 import com.wellsandwhistles.android.redditsp.common.General;
-import com.wellsandwhistles.android.redditsp.common.LinkHandler;
 import com.wellsandwhistles.android.redditsp.common.PrefsUtility;
 import com.wellsandwhistles.android.redditsp.common.SRError;
-import com.wellsandwhistles.android.redditsp.http.HTTPBackend;
+import com.wellsandwhistles.android.redditsp.common.HTTPBackend;
 import com.wellsandwhistles.android.redditsp.image.ThumbnailScaler;
 import com.wellsandwhistles.android.redditsp.jsonwrap.JsonBufferedObject;
 import com.wellsandwhistles.android.redditsp.jsonwrap.JsonValue;
@@ -215,7 +214,7 @@ public class ImgurUploadActivity extends BaseActivity {
 
 					final String base64String = new String(byteOutput.toByteArray());
 
-					LinkHandler.UI_THREAD_HANDLER.post(new Runnable() {
+					General.UI_THREAD_HANDLER.post(new Runnable() {
 						@Override
 						public void run() {
 							mBase64Data = base64String;
@@ -238,7 +237,7 @@ public class ImgurUploadActivity extends BaseActivity {
 									getString(R.string.error_file_open_failed_message),
 									e));
 
-					LinkHandler.UI_THREAD_HANDLER.post(new Runnable() {
+					General.UI_THREAD_HANDLER.post(new Runnable() {
 						@Override
 						public void run() {
 							mBase64Data = null;
@@ -299,7 +298,7 @@ public class ImgurUploadActivity extends BaseActivity {
 						httpStatus,
 						url.toString()));
 
-				LinkHandler.UI_THREAD_HANDLER.post(new Runnable() {
+				General.UI_THREAD_HANDLER.post(new Runnable() {
 					@Override
 					public void run() {
 						hideLoadingOverlay();
@@ -340,7 +339,7 @@ public class ImgurUploadActivity extends BaseActivity {
 					return;
 				}
 
-				LinkHandler.UI_THREAD_HANDLER.post(new Runnable() {
+				General.UI_THREAD_HANDLER.post(new Runnable() {
 					@Override
 					public void run() {
 

@@ -6,7 +6,7 @@ package com.wellsandwhistles.android.redditsp.cache;
 import com.wellsandwhistles.android.redditsp.activities.BugReportActivity;
 import com.wellsandwhistles.android.redditsp.common.PrioritisedCachedThreadPool;
 import com.wellsandwhistles.android.redditsp.common.SRTime;
-import com.wellsandwhistles.android.redditsp.http.HTTPBackend;
+import com.wellsandwhistles.android.redditsp.common.HTTPBackend;
 import com.wellsandwhistles.android.redditsp.jsonwrap.JsonValue;
 import com.wellsandwhistles.android.redditsp.reddit.api.RedditOAuth;
 

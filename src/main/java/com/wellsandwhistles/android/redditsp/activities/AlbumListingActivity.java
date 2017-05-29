@@ -108,7 +108,7 @@ public class AlbumListingActivity extends com.wellsandwhistles.android.redditsp.
 			public void onSuccess(final ImgurAPI.AlbumInfo info) {
 				Log.i("AlbumListingActivity", "Got album, " + info.images.size() + " image(s)");
 
-				LinkHandler.UI_THREAD_HANDLER.post(new Runnable() {
+				General.UI_THREAD_HANDLER.post(new Runnable() {
 					@Override
 					public void run() {
 
@@ -161,7 +161,7 @@ public class AlbumListingActivity extends com.wellsandwhistles.android.redditsp.
 		if(General.isThisUIThread()) {
 			r.run();
 		} else {
-			LinkHandler.UI_THREAD_HANDLER.post(r);
+			General.UI_THREAD_HANDLER.post(r);
 		}
 	}
 }

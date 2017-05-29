@@ -23,7 +23,6 @@ import com.wellsandwhistles.android.redditsp.R;
 import com.wellsandwhistles.android.redditsp.account.RedditAccount;
 import com.wellsandwhistles.android.redditsp.account.RedditAccountManager;
 import com.wellsandwhistles.android.redditsp.common.General;
-import com.wellsandwhistles.android.redditsp.common.LinkHandler;
 import com.wellsandwhistles.android.redditsp.common.PrefsUtility;
 import com.wellsandwhistles.android.redditsp.fragments.MainMenuFragment;
 import com.wellsandwhistles.android.redditsp.reddit.api.RedditSubredditSubscriptionManager;
@@ -318,7 +317,7 @@ public class MainMenuListingManager {
 
 	public void setMultiredditsError(final ErrorView errorView) {
 
-		LinkHandler.UI_THREAD_HANDLER.post(new Runnable() {
+		General.UI_THREAD_HANDLER.post(new Runnable() {
 			@Override
 			public void run() {
 
@@ -330,7 +329,7 @@ public class MainMenuListingManager {
 
 	public void setSubredditsError(final ErrorView errorView) {
 
-		LinkHandler.UI_THREAD_HANDLER.post(new Runnable() {
+		General.UI_THREAD_HANDLER.post(new Runnable() {
 			@Override
 			public void run() {
 
@@ -345,7 +344,7 @@ public class MainMenuListingManager {
 		final ArrayList<String> subscriptionsSorted = new ArrayList<>(subscriptions);
 		Collections.sort(subscriptionsSorted);
 
-		LinkHandler.UI_THREAD_HANDLER.post(new Runnable() {
+		General.UI_THREAD_HANDLER.post(new Runnable() {
 			@Override
 			public void run() {
 
@@ -385,7 +384,7 @@ public class MainMenuListingManager {
 		final ArrayList<String> subscriptionsSorted = new ArrayList<>(subscriptions);
 		Collections.sort(subscriptionsSorted);
 
-		LinkHandler.UI_THREAD_HANDLER.post(new Runnable() {
+		General.UI_THREAD_HANDLER.post(new Runnable() {
 			@Override
 			public void run() {
 

@@ -5,6 +5,7 @@ package com.wellsandwhistles.android.redditsp.reddit.prepared;
 
 import android.support.v7.app.AppCompatActivity;
 
+//todo consolidate this with RedditRenderableCommentListItem
 public interface RedditRenderableInboxItem extends RedditRenderableCommentListItem {
 	void handleInboxClick(AppCompatActivity activity);
 
