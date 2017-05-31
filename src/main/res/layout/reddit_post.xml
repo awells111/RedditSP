@@ -5,7 +5,9 @@ This file was either copied or modified from https://github.com/QuantumBadger/Re
 under the Free Software Foundation General Public License version 3*/
 -->
 
+<!--todo add content descriptions-->
 <!--todo Put Upvote/Downvote here-->
+<!--Used to display a Reddit post from the Front Page or any subreddit-->
 <LinearLayout
 		xmlns:android="http://schemas.android.com/apk/res/android"
 		android:layout_width="match_parent"
@@ -13,12 +15,7 @@ under the Free Software Foundation General Public License version 3*/
 		android:orientation="vertical"
 		android:baselineAligned="false">
 
-	<View
-			android:id="@+id/view_reddit_post_divider_top"
-			android:layout_width="match_parent"
-			android:layout_height="1dp"
-			android:background="?srListDividerCol"/>
-
+	<!--Holds everything besides the top divider line-->
 	<LinearLayout
 			android:id="@+id/reddit_post_layout"
 			android:layout_width="match_parent"
@@ -29,6 +26,7 @@ under the Free Software Foundation General Public License version 3*/
 			android:minHeight="64dp"
 			android:elevation="10dp">
 
+		<!--FrameLayout just for the image/overlay icon-->
 		<FrameLayout
 				android:layout_width="wrap_content"
 				android:layout_height="match_parent"
@@ -51,6 +49,7 @@ under the Free Software Foundation General Public License version 3*/
 
 		</FrameLayout>
 
+		<!--Holds the post title and the sub title-->
 		<LinearLayout
 				android:id="@+id/reddit_post_textLayout"
 				android:layout_height="wrap_content"
@@ -86,6 +85,7 @@ under the Free Software Foundation General Public License version 3*/
 
 		</LinearLayout>
 
+		<!--Holds the comment image and the number of comments are below the image-->
 		<LinearLayout
 				android:id="@+id/reddit_post_comments_button"
 				android:layout_width="50dp"

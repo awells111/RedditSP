@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+		xmlns:android="http://schemas.android.com/apk/res/android"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:baselineAligned="false"
+		android:orientation="vertical">
+
+	<!--Top divider line-->
+	<View
+			android:id="@+id/view_reddit_post_divider_top"
+			android:layout_width="match_parent"
+			android:layout_height="1dp"
+			android:background="?srListDividerCol"/>
+
+	<!--Holds the layout for the reddit post and the layout for the vote arrows. We are using separate
+	layouts so the onClicks will not interfere.-->
+	<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+				  android:layout_width="match_parent"
+				  android:layout_height="match_parent"
+				  android:orientation="horizontal">
+
+		<include layout="@layout/reddit_vote_arrows"/>
+
+		<include layout="@layout/reddit_post"/>
+
+	</LinearLayout>
+</LinearLayout>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="wrap_content"
+              android:layout_height="match_parent">
+
+	<!--Holds the upvote/downvote buttons-->
+	<ImageView
+			android:id="@+id/reddit_post_upvote"
+			android:src="@drawable/action_upvote_light"
+			android:layout_width="wrap_content"
+			android:layout_height="0dp"
+			android:layout_weight="1"/>
+
+	<ImageView
+			android:id="@+id/reddit_post_downvote"
+			android:src="@drawable/action_downvote_light"
+			android:layout_width="wrap_content"
+			android:layout_height="0dp"
+			android:layout_weight="1"/>
+
+</LinearLayout>

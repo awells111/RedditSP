@@ -26,7 +26,7 @@ import com.wellsandwhistles.android.redditsp.R;
 import com.wellsandwhistles.android.redditsp.common.PrefsUtility;
 import com.wellsandwhistles.android.redditsp.fragments.PostListingFragment;
 import com.wellsandwhistles.android.redditsp.reddit.prepared.RedditPreparedPost;
-
+//todo missing constructor warning?
 public final class RedditPostView extends FlingableItemView implements RedditPreparedPost.ThumbnailLoadedCallback {
 
 	private final float dpScale;
@@ -187,7 +187,7 @@ public final class RedditPostView extends FlingableItemView implements RedditPre
 
 		final float fontScale = PrefsUtility.appearance_fontscale_posts(context, PreferenceManager.getDefaultSharedPreferences(context));
 
-		final View rootView = LayoutInflater.from(context).inflate(R.layout.reddit_post, this, true);
+		final View rootView = LayoutInflater.from(context).inflate(R.layout.reddit_post_with_votes, this, true);
 
 		mOuterView = (LinearLayout)rootView.findViewById(R.id.reddit_post_layout);
 
@@ -207,6 +207,7 @@ public final class RedditPostView extends FlingableItemView implements RedditPre
 		});
 
 		thumbnailView = (ImageView) rootView.findViewById(R.id.reddit_post_thumbnail_view);
+		//todo alex overlayIcon is where the upvote and downvote are currently going.  they are placed over the thumbnail for the posts
 		overlayIcon = (ImageView) rootView.findViewById(R.id.reddit_post_overlay_icon);
 
 		title = (TextView) rootView.findViewById(R.id.reddit_post_title);
