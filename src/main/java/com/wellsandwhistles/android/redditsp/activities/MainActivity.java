@@ -133,7 +133,6 @@ public class MainActivity extends RefreshableActivity
 			edit.putString("firstRunMessageShown", "true");
 			edit.putBoolean(getString(R.string.pref_behaviour_skiptofrontpage_key), true);
 			edit.apply();
-
 		}
 
 		addSubscriptionListener();
