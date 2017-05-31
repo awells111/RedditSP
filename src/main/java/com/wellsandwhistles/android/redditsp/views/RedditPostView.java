@@ -25,6 +25,8 @@ import android.widget.TextView;
 import com.wellsandwhistles.android.redditsp.R;
 import com.wellsandwhistles.android.redditsp.common.PrefsUtility;
 import com.wellsandwhistles.android.redditsp.fragments.PostListingFragment;
+import com.wellsandwhistles.android.redditsp.reddit.RedditAPI;
+import com.wellsandwhistles.android.redditsp.reddit.api.RedditAPICommentAction;
 import com.wellsandwhistles.android.redditsp.reddit.prepared.RedditPreparedPost;
 //todo missing constructor warning?
 public final class RedditPostView extends FlingableItemView implements RedditPreparedPost.ThumbnailLoadedCallback {
@@ -35,6 +37,7 @@ public final class RedditPostView extends FlingableItemView implements RedditPre
 	private final TextView title, subtitle;
 
 	private final ImageView thumbnailView, overlayIcon;
+	private final ImageView upvoteArrow, downvoteArrow;
 
 	private final LinearLayout mOuterView;
 	private final LinearLayout commentsButton;
@@ -188,6 +191,25 @@ public final class RedditPostView extends FlingableItemView implements RedditPre
 		final float fontScale = PrefsUtility.appearance_fontscale_posts(context, PreferenceManager.getDefaultSharedPreferences(context));
 
 		final View rootView = LayoutInflater.from(context).inflate(R.layout.reddit_post_with_votes, this, true);
+
+		upvoteArrow = (ImageView) rootView.findViewById(R.id.reddit_post_upvote);
+		downvoteArrow = (ImageView) rootView.findViewById(R.id.reddit_post_downvote);
+
+		upvoteArrow.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View view) {
+				post.handleVote(mActivity, RedditAPI.ACTION_UPVOTE);
+				updateAppearance();
+			}
+		});
+
+		downvoteArrow.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View view) {
+				post.handleVote(mActivity, RedditAPI.ACTION_DOWNVOTE);
+				updateAppearance();
+			}
+		});
 
 		mOuterView = (LinearLayout)rootView.findViewById(R.id.reddit_post_layout);
 

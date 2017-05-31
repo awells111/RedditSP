@@ -201,12 +201,6 @@ public class PostListingFragment extends SRFragment
 
 		mRecyclerView.getLayoutParams().height = ViewGroup.LayoutParams.MATCH_PARENT;
 
-		int limit = 50;
-
-		if (mPostCountLimit > 0 && limit > mPostCountLimit) {
-			limit = mPostCountLimit;
-		}
-
 		final DownloadStrategy downloadStrategy;
 
 		if (forceDownload) {
@@ -408,12 +402,6 @@ public class PostListingFragment extends SRFragment
 				final DownloadStrategy strategy = (SRTime.since(mTimestamp) < 3 * 60 * 60 * 1000)
 						? DownloadStrategyIfNotCached.INSTANCE
 						: DownloadStrategyNever.INSTANCE;
-
-				int limit = 50;
-
-				if (mPostCountLimit > 0 && limit > mPostRefreshCount.get()) {
-					limit = mPostRefreshCount.get();
-				}
 
 				mRequest = new PostListingRequest(newUri, RedditAccountManager.getInstance(getActivity()).getDefaultAccount(), mSession, strategy, false);
 				mPostListingManager.setLoadingVisible(true);

@@ -1,7 +1,9 @@
 package com.wellsandwhistles.android.redditsp.reddit.prepared;
 
-/** This file was either copied or modified from https://github.com/QuantumBadger/RedReader
- * under the Free Software Foundation General Public License version 3*/
+/**
+ * This file was either copied or modified from https://github.com/QuantumBadger/RedReader
+ * under the Free Software Foundation General Public License version 3
+ */
 
 import android.Manifest;
 import android.app.AlertDialog;
@@ -19,15 +21,27 @@ import android.text.ClipboardManager;
 import android.text.SpannableStringBuilder;
 import android.util.Log;
 import android.widget.Toast;
-import org.apache.commons.lang3.StringEscapeUtils;
+
 import com.wellsandwhistles.android.redditsp.R;
 import com.wellsandwhistles.android.redditsp.account.RedditAccount;
 import com.wellsandwhistles.android.redditsp.account.RedditAccountManager;
-import com.wellsandwhistles.android.redditsp.activities.*;
+import com.wellsandwhistles.android.redditsp.activities.BaseActivity;
+import com.wellsandwhistles.android.redditsp.activities.BugReportActivity;
+import com.wellsandwhistles.android.redditsp.activities.CommentEditActivity;
+import com.wellsandwhistles.android.redditsp.activities.CommentReplyActivity;
+import com.wellsandwhistles.android.redditsp.activities.MainActivity;
+import com.wellsandwhistles.android.redditsp.activities.PostListingActivity;
+import com.wellsandwhistles.android.redditsp.activities.WebViewActivity;
 import com.wellsandwhistles.android.redditsp.cache.CacheManager;
 import com.wellsandwhistles.android.redditsp.cache.CacheRequest;
 import com.wellsandwhistles.android.redditsp.cache.downloadstrategy.DownloadStrategyIfNotCached;
-import com.wellsandwhistles.android.redditsp.common.*;
+import com.wellsandwhistles.android.redditsp.common.BetterSSB;
+import com.wellsandwhistles.android.redditsp.common.Constants;
+import com.wellsandwhistles.android.redditsp.common.General;
+import com.wellsandwhistles.android.redditsp.common.LinkHandler;
+import com.wellsandwhistles.android.redditsp.common.PrefsUtility;
+import com.wellsandwhistles.android.redditsp.common.SRError;
+import com.wellsandwhistles.android.redditsp.common.SRTime;
 import com.wellsandwhistles.android.redditsp.fragments.PostPropertiesDialog;
 import com.wellsandwhistles.android.redditsp.image.SaveImageCallback;
 import com.wellsandwhistles.android.redditsp.image.ShareImageCallback;
@@ -40,8 +54,14 @@ import com.wellsandwhistles.android.redditsp.reddit.url.SubredditPostListURL;
 import com.wellsandwhistles.android.redditsp.reddit.url.UserProfileURL;
 import com.wellsandwhistles.android.redditsp.views.RedditPostView;
 
+import org.apache.commons.lang3.StringEscapeUtils;
+
 import java.net.URI;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.EnumSet;
+import java.util.HashSet;
+import java.util.List;
+import java.util.UUID;
 
 public final class RedditPreparedPost {
 
@@ -105,8 +125,7 @@ public final class RedditPreparedPost {
 
 		public final int descriptionResId;
 
-		Action(final int descriptionResId)
-		{
+		Action(final int descriptionResId) {
 			this.descriptionResId = descriptionResId;
 		}
 	}
@@ -136,7 +155,7 @@ public final class RedditPreparedPost {
 		// TODO parameterise
 		final int thumbnailWidth = General.dpToPixels(context, 64);
 
-		if(hasThumbnail && hasThumbnail(post)) {
+		if (hasThumbnail && hasThumbnail(post)) {
 			downloadThumbnail(context, thumbnailWidth, cm, listId);
 		}
 
@@ -152,62 +171,67 @@ public final class RedditPreparedPost {
 
 		final EnumSet<Action> itemPref = PrefsUtility.pref_menus_post_context_items(activity, PreferenceManager.getDefaultSharedPreferences(activity));
 
-		if(itemPref.isEmpty()) return;
+		if (itemPref.isEmpty()) return;
 
 		final RedditAccount user = RedditAccountManager.getInstance(activity).getDefaultAccount();
 
 		final ArrayList<RPVMenuItem> menu = new ArrayList<>();
 
-		if(!RedditAccountManager.getInstance(activity).getDefaultAccount().isAnonymous()) {
+		if (!RedditAccountManager.getInstance(activity).getDefaultAccount().isAnonymous()) {
 
-			if(itemPref.contains(Action.UPVOTE)) {
-				if(!post.isUpvoted()) {
+			if (itemPref.contains(Action.UPVOTE)) {
+				if (!post.isUpvoted()) {
 					menu.add(new RPVMenuItem(activity, R.string.action_upvote, Action.UPVOTE));
 				} else {
 					menu.add(new RPVMenuItem(activity, R.string.action_upvote_remove, Action.UNVOTE));
 				}
 			}
 
-			if(itemPref.contains(Action.DOWNVOTE)) {
-				if(!post.isDownvoted()) {
+			if (itemPref.contains(Action.DOWNVOTE)) {
+				if (!post.isDownvoted()) {
 					menu.add(new RPVMenuItem(activity, R.string.action_downvote, Action.DOWNVOTE));
 				} else {
 					menu.add(new RPVMenuItem(activity, R.string.action_downvote_remove, Action.UNVOTE));
 				}
 			}
 
-			if(itemPref.contains(Action.SAVE)) {
-				if(!post.isSaved()) {
+			if (itemPref.contains(Action.SAVE)) {
+				if (!post.isSaved()) {
 					menu.add(new RPVMenuItem(activity, R.string.action_save, Action.SAVE));
 				} else {
 					menu.add(new RPVMenuItem(activity, R.string.action_unsave, Action.UNSAVE));
 				}
 			}
 
-			if(itemPref.contains(Action.HIDE)) {
-				if(!post.isHidden()) {
+			if (itemPref.contains(Action.HIDE)) {
+				if (!post.isHidden()) {
 					menu.add(new RPVMenuItem(activity, R.string.action_hide, Action.HIDE));
 				} else {
 					menu.add(new RPVMenuItem(activity, R.string.action_unhide, Action.UNHIDE));
 				}
 			}
 
-			if(itemPref.contains(Action.EDIT) && post.isSelf() && user.username.equalsIgnoreCase(post.src.getAuthor())){
+			if (itemPref.contains(Action.EDIT) && post.isSelf() && user.username.equalsIgnoreCase(post.src.getAuthor())) {
 				menu.add(new RPVMenuItem(activity, R.string.action_edit, Action.EDIT));
 			}
 
-			if(itemPref.contains(Action.DELETE) && user.username.equalsIgnoreCase(post.src.getAuthor())) {
+			if (itemPref.contains(Action.DELETE) && user.username.equalsIgnoreCase(post.src.getAuthor())) {
 				menu.add(new RPVMenuItem(activity, R.string.action_delete, Action.DELETE));
 			}
 
-			if(itemPref.contains(Action.REPORT)) menu.add(new RPVMenuItem(activity, R.string.action_report, Action.REPORT));
+			if (itemPref.contains(Action.REPORT))
+				menu.add(new RPVMenuItem(activity, R.string.action_report, Action.REPORT));
 		}
 
-		if(itemPref.contains(Action.EXTERNAL)) menu.add(new RPVMenuItem(activity, R.string.action_external, Action.EXTERNAL));
-		if(itemPref.contains(Action.SELFTEXT_LINKS) && post.src.getRawSelfText() != null && post.src.getRawSelfText().length() > 1) menu.add(new RPVMenuItem(activity, R.string.action_selftext_links, Action.SELFTEXT_LINKS));
-		if(itemPref.contains(Action.SAVE_IMAGE) && post.mIsProbablyAnImage) menu.add(new RPVMenuItem(activity, R.string.action_save_image, Action.SAVE_IMAGE));
-		if(itemPref.contains(Action.GOTO_SUBREDDIT)) menu.add(new RPVMenuItem(activity, R.string.action_gotosubreddit, Action.GOTO_SUBREDDIT));
-		if (post.showSubreddit){
+		if (itemPref.contains(Action.EXTERNAL))
+			menu.add(new RPVMenuItem(activity, R.string.action_external, Action.EXTERNAL));
+		if (itemPref.contains(Action.SELFTEXT_LINKS) && post.src.getRawSelfText() != null && post.src.getRawSelfText().length() > 1)
+			menu.add(new RPVMenuItem(activity, R.string.action_selftext_links, Action.SELFTEXT_LINKS));
+		if (itemPref.contains(Action.SAVE_IMAGE) && post.mIsProbablyAnImage)
+			menu.add(new RPVMenuItem(activity, R.string.action_save_image, Action.SAVE_IMAGE));
+		if (itemPref.contains(Action.GOTO_SUBREDDIT))
+			menu.add(new RPVMenuItem(activity, R.string.action_gotosubreddit, Action.GOTO_SUBREDDIT));
+		if (post.showSubreddit) {
 			try {
 				String subredditCanonicalName = RedditSubreddit.getCanonicalName(post.src.getSubreddit());
 
@@ -242,22 +266,28 @@ public final class RedditPreparedPost {
 					}
 				}
 
-			} catch (RedditSubreddit.InvalidSubredditNameException ex){
+			} catch (RedditSubreddit.InvalidSubredditNameException ex) {
 				throw new RuntimeException(ex);
 			}
 		}
 
-		if(itemPref.contains(Action.SHARE)) menu.add(new RPVMenuItem(activity, R.string.action_share, Action.SHARE));
-		if(itemPref.contains(Action.SHARE_COMMENTS)) menu.add(new RPVMenuItem(activity, R.string.action_share_comments, Action.SHARE_COMMENTS));
-		if(itemPref.contains(Action.SHARE_IMAGE) && post.mIsProbablyAnImage) menu.add(new RPVMenuItem(activity, R.string.action_share_image, Action.SHARE_IMAGE));
-		if(itemPref.contains(Action.COPY)) menu.add(new RPVMenuItem(activity, R.string.action_copy, Action.COPY));
-		if(itemPref.contains(Action.USER_PROFILE)) menu.add(new RPVMenuItem(activity, R.string.action_user_profile, Action.USER_PROFILE));
-		if(itemPref.contains(Action.PROPERTIES)) menu.add(new RPVMenuItem(activity, R.string.action_properties, Action.PROPERTIES));
+		if (itemPref.contains(Action.SHARE))
+			menu.add(new RPVMenuItem(activity, R.string.action_share, Action.SHARE));
+		if (itemPref.contains(Action.SHARE_COMMENTS))
+			menu.add(new RPVMenuItem(activity, R.string.action_share_comments, Action.SHARE_COMMENTS));
+		if (itemPref.contains(Action.SHARE_IMAGE) && post.mIsProbablyAnImage)
+			menu.add(new RPVMenuItem(activity, R.string.action_share_image, Action.SHARE_IMAGE));
+		if (itemPref.contains(Action.COPY))
+			menu.add(new RPVMenuItem(activity, R.string.action_copy, Action.COPY));
+		if (itemPref.contains(Action.USER_PROFILE))
+			menu.add(new RPVMenuItem(activity, R.string.action_user_profile, Action.USER_PROFILE));
+		if (itemPref.contains(Action.PROPERTIES))
+			menu.add(new RPVMenuItem(activity, R.string.action_properties, Action.PROPERTIES));
 
 
 		final String[] menuText = new String[menu.size()];
 
-		for(int i = 0; i < menuText.length; i++) {
+		for (int i = 0; i < menuText.length; i++) {
 			menuText[i] = menu.get(i).title;
 		}
 
@@ -279,7 +309,7 @@ public final class RedditPreparedPost {
 
 	public static void onActionMenuItemSelected(final RedditPreparedPost post, final AppCompatActivity activity, final Action action) {
 
-		switch(action) {
+		switch (action) {
 
 			case UPVOTE:
 				post.action(activity, RedditAPI.ACTION_UPVOTE);
@@ -363,7 +393,7 @@ public final class RedditPreparedPost {
 
 				final HashSet<String> linksInComment = LinkHandler.computeAllLinks(StringEscapeUtils.unescapeHtml4(post.src.getRawSelfText()));
 
-				if(linksInComment.isEmpty()) {
+				if (linksInComment.isEmpty()) {
 					General.quickToast(activity, R.string.error_toast_no_urls_in_self);
 
 				} else {
@@ -390,7 +420,7 @@ public final class RedditPreparedPost {
 
 			case SAVE_IMAGE: {
 
-				((BaseActivity)activity).requestPermissionWithCallback(Manifest.permission.WRITE_EXTERNAL_STORAGE, new SaveImageCallback(activity, post.src.getUrl()));
+				((BaseActivity) activity).requestPermissionWithCallback(Manifest.permission.WRITE_EXTERNAL_STORAGE, new SaveImageCallback(activity, post.src.getUrl()));
 				break;
 			}
 
@@ -422,7 +452,7 @@ public final class RedditPreparedPost {
 
 			case SHARE_IMAGE: {
 
-				((BaseActivity)activity).requestPermissionWithCallback(Manifest.permission.WRITE_EXTERNAL_STORAGE, new ShareImageCallback(activity, post.src.getUrl()));
+				((BaseActivity) activity).requestPermissionWithCallback(Manifest.permission.WRITE_EXTERNAL_STORAGE, new ShareImageCallback(activity, post.src.getUrl()));
 
 				break;
 			}
@@ -441,7 +471,7 @@ public final class RedditPreparedPost {
 					intent.setData(SubredditPostListURL.getSubreddit(post.src.getSubreddit()).generateJsonUri());
 					activity.startActivityForResult(intent, 1);
 
-				} catch(RedditSubreddit.InvalidSubredditNameException e) {
+				} catch (RedditSubreddit.InvalidSubredditNameException e) {
 					Toast.makeText(activity, R.string.invalid_subreddit_name, Toast.LENGTH_LONG).show();
 				}
 
@@ -457,7 +487,7 @@ public final class RedditPreparedPost {
 				break;
 
 			case COMMENTS:
-				((RedditPostView.PostSelectionListener)activity).onPostCommentsSelected(post);
+				((RedditPostView.PostSelectionListener) activity).onPostCommentsSelected(post);
 
 				new Thread() {
 					@Override
@@ -469,17 +499,17 @@ public final class RedditPreparedPost {
 				break;
 
 			case LINK:
-				((RedditPostView.PostSelectionListener)activity).onPostSelected(post);
+				((RedditPostView.PostSelectionListener) activity).onPostSelected(post);
 				break;
 
 			case COMMENTS_SWITCH:
-				if(!(activity instanceof MainActivity)) activity.finish();
-				((RedditPostView.PostSelectionListener)activity).onPostCommentsSelected(post);
+				if (!(activity instanceof MainActivity)) activity.finish();
+				((RedditPostView.PostSelectionListener) activity).onPostCommentsSelected(post);
 				break;
 
 			case LINK_SWITCH:
-				if(!(activity instanceof MainActivity)) activity.finish();
-				((RedditPostView.PostSelectionListener)activity).onPostSelected(post);
+				if (!(activity instanceof MainActivity)) activity.finish();
+				((RedditPostView.PostSelectionListener) activity).onPostSelected(post);
 				break;
 
 			case ACTION_MENU:
@@ -502,7 +532,7 @@ public final class RedditPreparedPost {
 				try {
 					String subredditCanonicalName = RedditSubreddit.getCanonicalName(post.src.getSubreddit());
 					List<String> pinnedSubreddits = PrefsUtility.pref_pinned_subreddits(activity, PreferenceManager.getDefaultSharedPreferences(activity));
-					if (!pinnedSubreddits.contains(subredditCanonicalName)){
+					if (!pinnedSubreddits.contains(subredditCanonicalName)) {
 						PrefsUtility.pref_pinned_subreddits_add(
 								activity,
 								PreferenceManager.getDefaultSharedPreferences(activity),
@@ -529,7 +559,7 @@ public final class RedditPreparedPost {
 					} else {
 						Toast.makeText(activity, R.string.mainmenu_toast_not_pinned, Toast.LENGTH_SHORT).show();
 					}
-				} catch (RedditSubreddit.InvalidSubredditNameException e){
+				} catch (RedditSubreddit.InvalidSubredditNameException e) {
 					throw new RuntimeException(e);
 				}
 				break;
@@ -547,7 +577,7 @@ public final class RedditPreparedPost {
 					} else {
 						Toast.makeText(activity, R.string.mainmenu_toast_blocked, Toast.LENGTH_SHORT).show();
 					}
-				} catch (RedditSubreddit.InvalidSubredditNameException e){
+				} catch (RedditSubreddit.InvalidSubredditNameException e) {
 					throw new RuntimeException(e);
 				}
 				break;
@@ -565,7 +595,7 @@ public final class RedditPreparedPost {
 					} else {
 						Toast.makeText(activity, R.string.mainmenu_toast_not_blocked, Toast.LENGTH_SHORT).show();
 					}
-				} catch (RedditSubreddit.InvalidSubredditNameException e){
+				} catch (RedditSubreddit.InvalidSubredditNameException e) {
 					throw new RuntimeException(e);
 				}
 				break;
@@ -611,9 +641,9 @@ public final class RedditPreparedPost {
 
 		int score = src.getScoreExcludingOwnVote();
 
-		if(isUpvoted()) {
+		if (isUpvoted()) {
 			score++;
-		} else if(isDownvoted()) {
+		} else if (isDownvoted()) {
 			score--;
 		}
 
@@ -647,33 +677,33 @@ public final class RedditPreparedPost {
 
 		final int score = computeScore();
 
-		if(isUpvoted()) {
+		if (isUpvoted()) {
 			pointsCol = rrPostSubtitleUpvoteCol;
-		} else if(isDownvoted()) {
+		} else if (isDownvoted()) {
 			pointsCol = rrPostSubtitleDownvoteCol;
 		} else {
 			pointsCol = boldCol;
 		}
 
-		if(src.isSpoiler()) {
+		if (src.isSpoiler()) {
 			postListDescSb.append(" SPOILER ", BetterSSB.BOLD | BetterSSB.FOREGROUND_COLOR | BetterSSB.BACKGROUND_COLOR,
 					Color.WHITE, Color.rgb(50, 50, 50), 1f);
 			postListDescSb.append("  ", 0);
 		}
 
-		if(src.isStickied()) {
+		if (src.isStickied()) {
 			postListDescSb.append(" STICKY ", BetterSSB.BOLD | BetterSSB.FOREGROUND_COLOR | BetterSSB.BACKGROUND_COLOR,
 					Color.WHITE, Color.rgb(0, 170, 0), 1f); // TODO color?
 			postListDescSb.append("  ", 0);
 		}
 
-		if(src.isNsfw()) {
+		if (src.isNsfw()) {
 			postListDescSb.append(" NSFW ", BetterSSB.BOLD | BetterSSB.FOREGROUND_COLOR | BetterSSB.BACKGROUND_COLOR,
 					Color.WHITE, Color.RED, 1f); // TODO color?
 			postListDescSb.append("  ", 0);
 		}
 
-		if(src.getFlairText() != null) {
+		if (src.getFlairText() != null) {
 			postListDescSb.append(" " + src.getFlairText() + " ", BetterSSB.BOLD | BetterSSB.FOREGROUND_COLOR | BetterSSB.BACKGROUND_COLOR,
 					rrFlairTextCol, rrFlairBackCol, 1f);
 			postListDescSb.append("  ", 0);
@@ -685,7 +715,7 @@ public final class RedditPreparedPost {
 		postListDescSb.append(" " + context.getString(R.string.subtitle_by) + " ", 0);
 		postListDescSb.append(src.getAuthor(), BetterSSB.BOLD | BetterSSB.FOREGROUND_COLOR, boldCol, 0, 1f);
 
-		if(showSubreddit) {
+		if (showSubreddit) {
 			postListDescSb.append(" " + context.getString(R.string.subtitle_to) + " ", 0);
 			postListDescSb.append(src.getSubreddit(), BetterSSB.BOLD | BetterSSB.FOREGROUND_COLOR, boldCol, 0, 1f);
 		}
@@ -720,10 +750,12 @@ public final class RedditPreparedPost {
 		cm.makeRequest(new CacheRequest(uri, anon, null, priority, listId, DownloadStrategyIfNotCached.INSTANCE, fileType, CacheRequest.DOWNLOAD_QUEUE_IMMEDIATE, false, false, context) {
 
 			@Override
-			protected void onDownloadNecessary() {}
+			protected void onDownloadNecessary() {
+			}
 
 			@Override
-			protected void onDownloadStarted() {}
+			protected void onDownloadStarted() {
+			}
 
 			@Override
 			protected void onCallbackException(final Throwable t) {
@@ -732,17 +764,19 @@ public final class RedditPreparedPost {
 			}
 
 			@Override
-			protected void onFailure(final @CacheRequest.RequestFailureType int type, final Throwable t, final Integer status, final String readableMessage) {}
+			protected void onFailure(final @CacheRequest.RequestFailureType int type, final Throwable t, final Integer status, final String readableMessage) {
+			}
 
 			@Override
-			protected void onProgress(final boolean authorizationInProgress, final long bytesRead, final long totalBytes) {}
+			protected void onProgress(final boolean authorizationInProgress, final long bytesRead, final long totalBytes) {
+			}
 
 			@Override
 			protected void onSuccess(final CacheManager.ReadableCacheFile cacheFile, final long timestamp, final UUID session, final boolean fromCache, final String mimetype) {
 
 				try {
 
-					synchronized(singleImageDecodeLock) {
+					synchronized (singleImageDecodeLock) {
 
 						BitmapFactory.Options justDecodeBounds = new BitmapFactory.Options();
 						justDecodeBounds.inJustDecodeBounds = true;
@@ -752,7 +786,7 @@ public final class RedditPreparedPost {
 
 						int factor = 1;
 
-						while(width / (factor + 1) > widthPixels
+						while (width / (factor + 1) > widthPixels
 								&& height / (factor + 1) > widthPixels) factor *= 2;
 
 						BitmapFactory.Options scaledOptions = new BitmapFactory.Options();
@@ -760,18 +794,19 @@ public final class RedditPreparedPost {
 
 						final Bitmap data = BitmapFactory.decodeStream(cacheFile.getInputStream(), null, scaledOptions);
 
-						if(data == null) return;
+						if (data == null) return;
 						thumbnailCache = ThumbnailScaler.scale(data, widthPixels);
-						if(thumbnailCache != data) data.recycle();
+						if (thumbnailCache != data) data.recycle();
 					}
 
-					if(thumbnailCallback != null) thumbnailCallback.betterThumbnailAvailable(thumbnailCache, usageId);
+					if (thumbnailCallback != null)
+						thumbnailCallback.betterThumbnailAvailable(thumbnailCache, usageId);
 
 				} catch (OutOfMemoryError e) {
 					// TODO handle this better - disable caching of images
 					Log.e("RedditPreparedPost", "Out of memory trying to download image");
 					e.printStackTrace();
-				} catch(Throwable t) {
+				} catch (Throwable t) {
 					// Just ignore it.
 				}
 			}
@@ -798,7 +833,7 @@ public final class RedditPreparedPost {
 	}
 
 	public void unbind(RedditPostView boundView) {
-		if(this.boundView == boundView) this.boundView = null;
+		if (this.boundView == boundView) this.boundView = null;
 	}
 
 	// TODO handle download failure - show red "X" or something
@@ -817,7 +852,7 @@ public final class RedditPreparedPost {
 			@Override
 			public void run() {
 				rebuildSubtitle(context);
-				if(boundView != null) {
+				if (boundView != null) {
 					boundView.updateAppearance();
 				}
 			}
@@ -828,7 +863,7 @@ public final class RedditPreparedPost {
 
 		final RedditAccount user = RedditAccountManager.getInstance(activity).getDefaultAccount();
 
-		if(user.isAnonymous()) {
+		if (user.isAnonymous()) {
 
 			General.UI_THREAD_HANDLER.post(new Runnable() {
 				@Override
@@ -843,22 +878,21 @@ public final class RedditPreparedPost {
 		final int lastVoteDirection = getVoteDirection();
 		final boolean archived = src.isArchived();
 
-
 		final long now = SRTime.utcCurrentTimeMillis();
 
-		switch(action) {
+		switch (action) {
 			case RedditAPI.ACTION_DOWNVOTE:
-				if(!archived) {
+				if (!archived) {
 					mChangeDataManager.markDownvoted(now, src);
 				}
 				break;
 			case RedditAPI.ACTION_UNVOTE:
-				if(!archived) {
+				if (!archived) {
 					mChangeDataManager.markUnvoted(now, src);
 				}
 				break;
 			case RedditAPI.ACTION_UPVOTE:
-				if(!archived) {
+				if (!archived) {
 					mChangeDataManager.markUpvoted(now, src);
 				}
 				break;
@@ -879,8 +913,10 @@ public final class RedditPreparedPost {
 				mChangeDataManager.markHidden(now, src, false);
 				break;
 
-			case RedditAPI.ACTION_REPORT: break;
-			case RedditAPI.ACTION_DELETE: break;
+			case RedditAPI.ACTION_REPORT:
+				break;
+			case RedditAPI.ACTION_DELETE:
+				break;
 
 			default:
 				throw new RuntimeException("Unknown post action");
@@ -892,7 +928,7 @@ public final class RedditPreparedPost {
 				| action == RedditAPI.ACTION_UPVOTE
 				| action == RedditAPI.ACTION_UNVOTE);
 
-		if(archived && vote){
+		if (archived && vote) {
 			Toast.makeText(activity, R.string.error_archived_vote, Toast.LENGTH_SHORT)
 					.show();
 			return;
@@ -908,7 +944,7 @@ public final class RedditPreparedPost {
 					@Override
 					protected void onFailure(final @CacheRequest.RequestFailureType int type, final Throwable t, final Integer status, final String readableMessage) {
 						revertOnFailure();
-						if(t != null) t.printStackTrace();
+						if (t != null) t.printStackTrace();
 
 						final SRError error = General.getGeneralErrorForFailure(context, type, t, status,
 								"Reddit API action code: " + action + " " + src.getIdAndType());
@@ -938,7 +974,7 @@ public final class RedditPreparedPost {
 
 						final long now = SRTime.utcCurrentTimeMillis();
 
-						switch(action) {
+						switch (action) {
 							case RedditAPI.ACTION_DOWNVOTE:
 								mChangeDataManager.markDownvoted(now, src);
 								break;
@@ -967,7 +1003,8 @@ public final class RedditPreparedPost {
 								mChangeDataManager.markHidden(now, src, false);
 								break;
 
-							case RedditAPI.ACTION_REPORT: break;
+							case RedditAPI.ACTION_REPORT:
+								break;
 
 							case RedditAPI.ACTION_DELETE:
 								General.quickToast(activity, R.string.delete_success);
@@ -984,19 +1021,19 @@ public final class RedditPreparedPost {
 
 						final long now = SRTime.utcCurrentTimeMillis();
 
-						switch(action) {
+						switch (action) {
 							case RedditAPI.ACTION_DOWNVOTE:
 							case RedditAPI.ACTION_UNVOTE:
 							case RedditAPI.ACTION_UPVOTE:
-								switch(lastVoteDirection) {
-									case -1:
+								switch (lastVoteDirection) {
+									case RedditAPI.ACTION_DOWNVOTE:
 										mChangeDataManager.markDownvoted(now, src);
 										break;
 
-									case 0:
+									case RedditAPI.ACTION_UNVOTE:
 										mChangeDataManager.markUnvoted(now, src);
 										break;
-									case 1:
+									case RedditAPI.ACTION_UPVOTE:
 										mChangeDataManager.markUpvoted(now, src);
 										break;
 								}
@@ -1017,8 +1054,10 @@ public final class RedditPreparedPost {
 								mChangeDataManager.markHidden(now, src, true);
 								break;
 
-							case RedditAPI.ACTION_REPORT: break;
-							case RedditAPI.ACTION_DELETE: break;
+							case RedditAPI.ACTION_REPORT:
+								break;
+							case RedditAPI.ACTION_DELETE:
+								break;
 
 							default:
 								throw new RuntimeException("Unknown post action");
@@ -1039,7 +1078,16 @@ public final class RedditPreparedPost {
 	}
 
 	public int getVoteDirection() {
-		return isUpvoted() ? 1 : (isDownvoted() ? -1 : 0);
+		return isUpvoted() ? RedditAPI.ACTION_UPVOTE : (isDownvoted() ? RedditAPI.ACTION_DOWNVOTE : RedditAPI.ACTION_UNVOTE);
+	}
+
+	public void handleVote(final AppCompatActivity activity, final @RedditAPI.RedditAction int action) {
+		// If our post is upvoted/downvoted and our user presses the same button, change our action to UNVOTE
+		if (getVoteDirection() == action) {
+			action(activity, RedditAPI.ACTION_UNVOTE);
+		} else {
+			action(activity, action);
+		}
 	}
 
 	public boolean isSaved() {
