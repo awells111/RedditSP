@@ -18,9 +18,9 @@ import com.wellsandwhistles.android.redditsp.fragments.WebViewFragment;
 import com.wellsandwhistles.android.redditsp.reddit.prepared.RedditPreparedPost;
 import com.wellsandwhistles.android.redditsp.reddit.things.RedditPost;
 import com.wellsandwhistles.android.redditsp.reddit.url.PostCommentListingURL;
-import com.wellsandwhistles.android.redditsp.views.RedditPostView;
 
-public class WebViewActivity extends BaseActivity implements RedditPostView.PostSelectionListener {
+//todo alexw I think I can get rid of this along with the rest of the legacy stuff because I upped the minApi to 16
+public class WebViewActivity extends BaseActivity implements RedditPreparedPost.PostSelectionListener {
 
 	private WebViewFragment webView;
 	public static final int VIEW_IN_BROWSER = 10,
@@ -66,6 +66,7 @@ public class WebViewActivity extends BaseActivity implements RedditPostView.Post
 	public void onPostCommentsSelected(final RedditPreparedPost post) {
 		LinkHandler.onLinkClicked(this, PostCommentListingURL.forPostId(post.src.getIdAlone()).toString(), false);
 	}
+
 
 	@Override
 	public boolean onOptionsItemSelected(final MenuItem item) {

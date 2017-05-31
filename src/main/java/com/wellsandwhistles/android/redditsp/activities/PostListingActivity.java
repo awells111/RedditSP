@@ -29,14 +29,13 @@ import com.wellsandwhistles.android.redditsp.reddit.url.PostCommentListingURL;
 import com.wellsandwhistles.android.redditsp.reddit.url.PostListingURL;
 import com.wellsandwhistles.android.redditsp.reddit.url.RedditURLParser;
 import com.wellsandwhistles.android.redditsp.reddit.url.SearchPostListURL;
-import com.wellsandwhistles.android.redditsp.views.RedditPostView;
 
 import java.util.Locale;
 import java.util.UUID;
 
 public class PostListingActivity extends RefreshableActivity
 		implements RedditAccountChangeListener,
-		RedditPostView.PostSelectionListener,
+		RedditPreparedPost.PostSelectionListener,
 		OptionsMenuUtility.OptionsMenuPostsListener,
 		SessionChangeListener,
 		RedditSubredditSubscriptionManager.SubredditSubscriptionStateChangeListener {
@@ -330,15 +329,6 @@ public class PostListingActivity extends RefreshableActivity
 		}
 
 		invalidateOptionsMenu();
-	}
-
-	public void onSessionSelected(UUID session, SessionChangeType type) {
-		controller.setSession(session);
-		requestRefresh(RefreshableFragment.POSTS, false);
-	}
-
-	public void onSessionRefreshSelected(SessionChangeType type) {
-		onRefreshPosts();
 	}
 
 	public void onSessionChanged(UUID session, SessionChangeType type, long timestamp) {

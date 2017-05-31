@@ -63,7 +63,6 @@ import com.wellsandwhistles.android.redditsp.reddit.url.PostListingURL;
 import com.wellsandwhistles.android.redditsp.reddit.url.RedditURLParser;
 import com.wellsandwhistles.android.redditsp.reddit.url.SubredditPostListURL;
 import com.wellsandwhistles.android.redditsp.views.PostListingHeader;
-import com.wellsandwhistles.android.redditsp.views.RedditPostView;
 import com.wellsandwhistles.android.redditsp.views.ScrollbarRecyclerViewManager;
 import com.wellsandwhistles.android.redditsp.views.liststatus.ErrorView;
 
@@ -79,7 +78,7 @@ import java.util.UUID;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class PostListingFragment extends SRFragment
-		implements RedditPostView.PostSelectionListener {
+		implements RedditPreparedPost.PostSelectionListener {
 
 	private static final String TAG = "PostListingFragment";
 
@@ -357,7 +356,7 @@ public class PostListingFragment extends SRFragment
 	}
 
 	public void onPostSelected(final RedditPreparedPost post) {
-		((RedditPostView.PostSelectionListener) getActivity()).onPostSelected(post);
+		((RedditPreparedPost.PostSelectionListener) getActivity()).onPostSelected(post);
 
 		new Thread() {
 			@Override
@@ -369,7 +368,7 @@ public class PostListingFragment extends SRFragment
 
 	public void onPostCommentsSelected(final RedditPreparedPost post) {
 
-		((RedditPostView.PostSelectionListener) getActivity()).onPostCommentsSelected(post);
+		((RedditPreparedPost.PostSelectionListener) getActivity()).onPostCommentsSelected(post);
 
 		new Thread() {
 			@Override

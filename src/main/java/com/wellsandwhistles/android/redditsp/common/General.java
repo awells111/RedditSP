@@ -35,6 +35,7 @@ import com.wellsandwhistles.android.redditsp.activities.BugReportActivity;
 import com.wellsandwhistles.android.redditsp.cache.CacheRequest;
 import com.wellsandwhistles.android.redditsp.fragments.ErrorPropertiesDialog;
 import com.wellsandwhistles.android.redditsp.reddit.APIResponseHandler;
+import com.wellsandwhistles.android.redditsp.reddit.prepared.RedditPreparedPost;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -615,4 +616,5 @@ public final class General {
 			Log.e("safeDismissDialog", "Caught exception while dismissing dialog", e);
 		}
 	}
+
 }

@@ -487,7 +487,7 @@ public final class RedditPreparedPost {
 				break;
 
 			case COMMENTS:
-				((RedditPostView.PostSelectionListener) activity).onPostCommentsSelected(post);
+				((PostSelectionListener) activity).onPostCommentsSelected(post);
 
 				new Thread() {
 					@Override
@@ -499,17 +499,17 @@ public final class RedditPreparedPost {
 				break;
 
 			case LINK:
-				((RedditPostView.PostSelectionListener) activity).onPostSelected(post);
+				((PostSelectionListener) activity).onPostSelected(post);
 				break;
 
 			case COMMENTS_SWITCH:
 				if (!(activity instanceof MainActivity)) activity.finish();
-				((RedditPostView.PostSelectionListener) activity).onPostCommentsSelected(post);
+				((PostSelectionListener) activity).onPostCommentsSelected(post);
 				break;
 
 			case LINK_SWITCH:
 				if (!(activity instanceof MainActivity)) activity.finish();
-				((RedditPostView.PostSelectionListener) activity).onPostSelected(post);
+				((PostSelectionListener) activity).onPostSelected(post);
 				break;
 
 			case ACTION_MENU:
@@ -1107,5 +1107,10 @@ public final class RedditPreparedPost {
 			this.action = action;
 		}
 	}
+	
+    public interface PostSelectionListener {
+        void onPostSelected(RedditPreparedPost post);
 
+        void onPostCommentsSelected(RedditPreparedPost post);
+    }
 }

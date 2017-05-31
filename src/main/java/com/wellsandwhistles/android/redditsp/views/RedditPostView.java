@@ -199,7 +199,6 @@ public final class RedditPostView extends FlingableItemView implements RedditPre
 			@Override
 			public void onClick(View view) {
 				post.handleVote(mActivity, RedditAPI.ACTION_UPVOTE);
-				updateAppearance();
 			}
 		});
 
@@ -207,7 +206,6 @@ public final class RedditPostView extends FlingableItemView implements RedditPre
 			@Override
 			public void onClick(View view) {
 				post.handleVote(mActivity, RedditAPI.ACTION_DOWNVOTE);
-				updateAppearance();
 			}
 		});
 
@@ -352,9 +350,4 @@ public final class RedditPostView extends FlingableItemView implements RedditPre
 		thumbnailHandler.sendMessage(msg);
 	}
 
-	public interface PostSelectionListener {
-		void onPostSelected(RedditPreparedPost post);
-
-		void onPostCommentsSelected(RedditPreparedPost post);
-	}
 }

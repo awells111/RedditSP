@@ -16,6 +16,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import com.wellsandwhistles.android.redditsp.R;
@@ -67,6 +68,8 @@ public class RedditCommentView extends FlingableItemView implements RedditChange
 	private final float mFontScale;
 
 	private final boolean mShowLinkButtons;
+
+	private ImageView commentUpvoteButton, commentDownvoteButton;
 
 	private final CommentListener mListener;
 
@@ -283,7 +286,7 @@ public class RedditCommentView extends FlingableItemView implements RedditChange
 		mChangeDataManager = RedditChangeDataManager.getInstance(
 				RedditAccountManager.getInstance(context).getDefaultAccount());
 
-		final View rootView = LayoutInflater.from(context).inflate(R.layout.reddit_comment, this, true);
+		final View rootView = LayoutInflater.from(context).inflate(R.layout.reddit_comment_with_votes, this, true);
 
 		mIndentView = (IndentView)rootView.findViewById(R.id.view_reddit_comment_indentview);
 		mHeader = (TextView)rootView.findViewById(R.id.view_reddit_comment_header);

@@ -22,7 +22,115 @@
 
 		<include layout="@layout/reddit_vote_arrows"/>
 
-		<include layout="@layout/reddit_post"/>
+		<LinearLayout
+				xmlns:android="http://schemas.android.com/apk/res/android"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:baselineAligned="false"
+				android:orientation="vertical">
+
+			<LinearLayout
+					android:id="@+id/reddit_post_layout"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:background="?srListItemBackgroundCol"
+					android:elevation="10dp"
+					android:gravity="center_vertical"
+					android:minHeight="64dp"
+					android:orientation="horizontal">
+
+				<!--FrameLayout just for the image/overlay icon-->
+				<FrameLayout
+						android:layout_width="wrap_content"
+						android:layout_height="match_parent"
+						android:background="?srPostThumbnailBackground"
+						android:baselineAligned="false">
+
+					<ImageView
+							android:id="@+id/reddit_post_thumbnail_view"
+							android:layout_width="wrap_content"
+							android:layout_height="match_parent"
+							android:scaleType="center"/>
+
+					<ImageView
+							android:id="@+id/reddit_post_overlay_icon"
+							android:layout_width="64dp"
+							android:layout_height="match_parent"
+							android:background="#99000000"
+							android:scaleType="center"
+							android:visibility="gone"/>
+
+				</FrameLayout>
+
+				<!--Holds the post title and the sub title-->
+				<LinearLayout
+						android:id="@+id/reddit_post_textLayout"
+						android:layout_width="0px"
+						android:layout_height="wrap_content"
+						android:layout_weight="1"
+						android:gravity="center_vertical"
+						android:orientation="vertical"
+						android:paddingLeft="2dp"
+						android:paddingRight="2dp">
+
+					<TextView
+							android:id="@+id/reddit_post_title"
+							android:layout_width="match_parent"
+							android:layout_height="wrap_content"
+							android:paddingBottom="0dp"
+							android:paddingLeft="10dp"
+							android:paddingRight="5dp"
+							android:paddingTop="5dp"
+							android:textColor="?srPostTitleCol"
+							android:textSize="14sp"/>
+
+					<TextView
+							android:id="@+id/reddit_post_subtitle"
+							android:layout_width="match_parent"
+							android:layout_height="wrap_content"
+							android:gravity="center_vertical"
+							android:paddingBottom="5dp"
+							android:paddingLeft="10dp"
+							android:paddingRight="5dp"
+							android:paddingTop="1dp"
+							android:textColor="#909090"
+							android:textSize="11sp"/>
+
+				</LinearLayout>
+
+				<!--Holds the comment image and the number of comments are below the image-->
+				<LinearLayout
+						android:id="@+id/reddit_post_comments_button"
+						android:layout_width="50dp"
+						android:layout_height="match_parent"
+						android:background="?srPostCommentsButtonBackCol"
+						android:gravity="center"
+						android:orientation="vertical">
+
+					<ImageView
+							android:layout_width="match_parent"
+							android:layout_height="wrap_content"
+							android:layout_marginBottom="2dp"
+							android:layout_marginLeft="8dp"
+							android:layout_marginRight="8dp"
+							android:layout_marginTop="4dp"
+							android:contentDescription="Comments"
+							android:scaleType="fitCenter"
+							android:src="?srIconComments"/> <!-- TODO string -->
+
+					<TextView
+							android:id="@+id/reddit_post_comments_text"
+							android:layout_width="fill_parent"
+							android:layout_height="wrap_content"
+							android:gravity="center"
+							android:textColor="?srPostCommentsButtonTextCol"
+							android:textSize="11sp"/>
+
+				</LinearLayout>
+
+			</LinearLayout>
+
+		</LinearLayout>
 
 	</LinearLayout>
 </LinearLayout>

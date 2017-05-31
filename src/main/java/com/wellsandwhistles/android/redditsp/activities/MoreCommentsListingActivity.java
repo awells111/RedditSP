@@ -22,14 +22,13 @@ import com.wellsandwhistles.android.redditsp.reddit.prepared.RedditPreparedPost;
 import com.wellsandwhistles.android.redditsp.reddit.url.PostCommentListingURL;
 import com.wellsandwhistles.android.redditsp.reddit.url.RedditURLParser;
 import com.wellsandwhistles.android.redditsp.reddit.url.UserCommentListingURL;
-import com.wellsandwhistles.android.redditsp.views.RedditPostView;
 
 import java.util.ArrayList;
 
 public class MoreCommentsListingActivity extends RefreshableActivity
 		implements RedditAccountChangeListener,
 		OptionsMenuUtility.OptionsMenuCommentsListener,
-		RedditPostView.PostSelectionListener {
+		RedditPreparedPost.PostSelectionListener {
 
 	private static final String EXTRA_SEARCH_STRING = "mcla_search_string";
 
