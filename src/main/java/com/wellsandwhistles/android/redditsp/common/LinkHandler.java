@@ -339,7 +339,7 @@ public class LinkHandler {
 			for (final ResolveInfo info : activity.getPackageManager().queryIntentActivities(baseIntent, 0)) {
 
 				final String packageName = info.activityInfo.packageName;
-				Log.i("RRDEBUG", "Considering " + packageName);
+				Log.i("SRDEBUG", "Considering " + packageName);
 
 				if (packageName != null && !packageName.startsWith("com.wellsandwhistles.android.redditsp")) {
 					final Intent intent = new Intent(Intent.ACTION_VIEW);
