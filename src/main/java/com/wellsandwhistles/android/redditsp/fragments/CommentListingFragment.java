@@ -45,7 +45,6 @@ import com.wellsandwhistles.android.redditsp.reddit.prepared.RedditRenderableCom
 import com.wellsandwhistles.android.redditsp.reddit.url.RedditURLParser;
 import com.wellsandwhistles.android.redditsp.views.RedditCommentView;
 import com.wellsandwhistles.android.redditsp.views.RedditPostHeaderView;
-import com.wellsandwhistles.android.redditsp.views.RedditPostView;
 import com.wellsandwhistles.android.redditsp.views.ScrollbarRecyclerViewManager;
 import com.wellsandwhistles.android.redditsp.views.liststatus.CommentSubThreadView;
 import com.wellsandwhistles.android.redditsp.views.liststatus.ErrorView;
@@ -55,7 +54,7 @@ import java.util.LinkedList;
 import java.util.UUID;
 
 public class CommentListingFragment extends SRFragment
-		implements RedditPostView.PostSelectionListener,
+		implements RedditPreparedPost.PostSelectionListener,
 		RedditCommentView.CommentListener,
 		CommentListingRequest.Listener {
 
@@ -481,10 +480,11 @@ public class CommentListingFragment extends SRFragment
 	}
 
 	public void onPostSelected(final RedditPreparedPost post) {
-		((RedditPostView.PostSelectionListener) getActivity()).onPostSelected(post);
+		((RedditPreparedPost.PostSelectionListener) getActivity()).onPostSelected(post);
 	}
 
 	public void onPostCommentsSelected(final RedditPreparedPost post) {
-		((RedditPostView.PostSelectionListener) getActivity()).onPostCommentsSelected(post);
+		((RedditPreparedPost.PostSelectionListener) getActivity()).onPostCommentsSelected(post);
 	}
+
 }

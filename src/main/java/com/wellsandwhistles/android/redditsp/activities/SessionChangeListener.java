@@ -11,9 +11,5 @@ public interface SessionChangeListener {
 		POSTS, COMMENTS
 	}
 
-	void onSessionSelected(UUID session, SessionChangeType type);
-
-	void onSessionRefreshSelected(SessionChangeType type);
-
 	void onSessionChanged(UUID session, SessionChangeType type, long timestamp);
 }

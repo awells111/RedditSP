@@ -42,7 +42,6 @@ import com.wellsandwhistles.android.redditsp.reddit.url.PostCommentListingURL;
 import com.wellsandwhistles.android.redditsp.views.GIFView;
 import com.wellsandwhistles.android.redditsp.views.HorizontalSwipeProgressOverlay;
 import com.wellsandwhistles.android.redditsp.views.MediaVideoView;
-import com.wellsandwhistles.android.redditsp.views.RedditPostView;
 import com.wellsandwhistles.android.redditsp.views.glview.SRGLSurfaceView;
 import com.wellsandwhistles.android.redditsp.views.imageview.BasicGestureHandler;
 import com.wellsandwhistles.android.redditsp.views.imageview.ImageTileSource;
@@ -56,7 +55,7 @@ import java.io.InputStream;
 import java.net.URI;
 import java.util.UUID;
 
-public class ImageViewActivity extends BaseActivity implements RedditPostView.PostSelectionListener, ImageViewDisplayListManager.Listener {
+public class ImageViewActivity extends BaseActivity implements RedditPreparedPost.PostSelectionListener, ImageViewDisplayListManager.Listener {
 
 	private static final String TAG = "ImageViewActivity";
 

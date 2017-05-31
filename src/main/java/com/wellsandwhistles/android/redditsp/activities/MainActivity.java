@@ -50,7 +50,6 @@ import com.wellsandwhistles.android.redditsp.reddit.url.SubredditPostListURL;
 import com.wellsandwhistles.android.redditsp.reddit.url.UserCommentListingURL;
 import com.wellsandwhistles.android.redditsp.reddit.url.UserPostListingURL;
 import com.wellsandwhistles.android.redditsp.reddit.url.UserProfileURL;
-import com.wellsandwhistles.android.redditsp.views.RedditPostView;
 
 import java.util.Locale;
 import java.util.UUID;
@@ -58,7 +57,7 @@ import java.util.UUID;
 public class MainActivity extends RefreshableActivity
 		implements MainMenuSelectionListener,
 		RedditAccountChangeListener,
-		RedditPostView.PostSelectionListener,
+		RedditPreparedPost.PostSelectionListener,
 		OptionsMenuUtility.OptionsMenuSubredditsListener,
 		OptionsMenuUtility.OptionsMenuPostsListener,
 		OptionsMenuUtility.OptionsMenuCommentsListener,
@@ -722,31 +721,6 @@ public class MainActivity extends RefreshableActivity
 				return true;
 			default:
 				return super.onOptionsItemSelected(item);
-		}
-	}
-
-	public void onSessionSelected(UUID session, SessionChangeType type) {
-
-		switch(type) {
-			case POSTS:
-				postListingController.setSession(session);
-				requestRefresh(RefreshableFragment.POSTS, false);
-				break;
-			case COMMENTS:
-				commentListingController.setSession(session);
-				requestRefresh(RefreshableFragment.COMMENTS, false);
-				break;
-		}
-	}
-
-	public void onSessionRefreshSelected(SessionChangeType type) {
-		switch(type) {
-			case POSTS:
-				onRefreshPosts();
-				break;
-			case COMMENTS:
-				onRefreshComments();
-				break;
 		}
 	}
 

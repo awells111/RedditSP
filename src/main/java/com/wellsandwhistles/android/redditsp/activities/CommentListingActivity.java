@@ -24,14 +24,13 @@ import com.wellsandwhistles.android.redditsp.reddit.prepared.RedditPreparedPost;
 import com.wellsandwhistles.android.redditsp.reddit.url.PostCommentListingURL;
 import com.wellsandwhistles.android.redditsp.reddit.url.RedditURLParser;
 import com.wellsandwhistles.android.redditsp.reddit.url.UserCommentListingURL;
-import com.wellsandwhistles.android.redditsp.views.RedditPostView;
 
 import java.util.UUID;
 
 public class CommentListingActivity extends RefreshableActivity
 		implements RedditAccountChangeListener,
 		OptionsMenuUtility.OptionsMenuCommentsListener,
-		RedditPostView.PostSelectionListener,
+		RedditPreparedPost.PostSelectionListener,
 		SessionChangeListener {
 
 	private static final String TAG = "CommentListingActivity";
@@ -187,15 +186,6 @@ public class CommentListingActivity extends RefreshableActivity
 		}
 
 		return super.onOptionsItemSelected(item);
-	}
-
-	public void onSessionRefreshSelected(SessionChangeType type) {
-		onRefreshComments();
-	}
-
-	public void onSessionSelected(UUID session, SessionChangeType type) {
-		controller.setSession(session);
-		requestRefresh(RefreshableFragment.COMMENTS, false);
 	}
 
 	public void onSessionChanged(UUID session, SessionChangeType type, long timestamp) {
