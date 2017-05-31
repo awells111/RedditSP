@@ -14,6 +14,7 @@ import android.os.Message;
 import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.annotation.UiThread;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
@@ -327,13 +328,22 @@ public final class RedditPostView extends FlingableItemView implements RedditPre
 			overlayIcon.setImageResource(R.drawable.ic_action_cross_dark);
 
 		} else if(post.isUpvoted()) {
+			upvoteArrow.setColorFilter(mActivity.getResources().getColor(R.color.upvoteColor));
 			overlayIcon.setImageResource(R.drawable.action_upvote_dark);
 
 		} else if(post.isDownvoted()) {
+			downvoteArrow.setColorFilter(mActivity.getResources().getColor(R.color.downvoteColor));
 			overlayIcon.setImageResource(R.drawable.action_downvote_dark);
 
 		} else {
 			overlayVisible = false;
+		}
+
+		if (!post.isUpvoted()) {
+			upvoteArrow.clearColorFilter();
+		}
+		if (!post.isDownvoted()) {
+			downvoteArrow.clearColorFilter();
 		}
 
 		if(overlayVisible) {

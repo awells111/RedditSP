@@ -1077,6 +1077,10 @@ public final class RedditPreparedPost {
 		return mChangeDataManager.isDownvoted(src);
 	}
 
+	public boolean isUnvoted() {
+		return mChangeDataManager.isUnvoted(src);
+	}
+
 	public int getVoteDirection() {
 		return isUpvoted() ? RedditAPI.ACTION_UPVOTE : (isDownvoted() ? RedditAPI.ACTION_DOWNVOTE : RedditAPI.ACTION_UNVOTE);
 	}
@@ -1107,7 +1111,7 @@ public final class RedditPreparedPost {
 			this.action = action;
 		}
 	}
-	
+
     public interface PostSelectionListener {
         void onPostSelected(RedditPreparedPost post);
 

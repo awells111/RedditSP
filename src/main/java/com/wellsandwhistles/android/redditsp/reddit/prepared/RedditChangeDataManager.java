@@ -235,6 +235,10 @@ public final class RedditChangeDataManager {
 			return mIsDownvoted;
 		}
 
+		public boolean isUnvoted() {
+			return !isUpvoted() && !isDownvoted();
+		}
+
 		Entry update(
 				final long timestamp,
 				final RedditComment comment) {
@@ -501,6 +505,12 @@ public final class RedditChangeDataManager {
 	public boolean isDownvoted(final RedditThingWithIdAndType thing) {
 		synchronized(mLock) {
 			return get(thing).isDownvoted();
+		}
+	}
+
+	public boolean isUnvoted(final RedditThingWithIdAndType thing) {
+		synchronized (mLock) {
+			return get(thing).isUnvoted();
 		}
 	}
 

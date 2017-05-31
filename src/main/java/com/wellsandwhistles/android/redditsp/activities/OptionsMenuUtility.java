@@ -339,6 +339,7 @@ public final class OptionsMenuUtility {
 				menu.add(activity.getString(R.string.options_subscribing)).setEnabled(false);
 				break;
 
+			//todo delete sidebar
 			case SIDEBAR:
 				menu.add(activity.getString(R.string.options_sidebar)).setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
 					public boolean onMenuItemClick(final MenuItem item) {
