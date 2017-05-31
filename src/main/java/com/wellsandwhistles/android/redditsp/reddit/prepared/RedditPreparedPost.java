@@ -20,6 +20,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.text.ClipboardManager;
 import android.text.SpannableStringBuilder;
 import android.util.Log;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.wellsandwhistles.android.redditsp.R;
@@ -69,6 +70,7 @@ public final class RedditPreparedPost {
 	private final RedditChangeDataManager mChangeDataManager;
 
 	public SpannableStringBuilder postListDescription;
+	public SpannableStringBuilder postKarma;
 
 	public final boolean isArchived;
 	public final boolean hasThumbnail;
@@ -673,6 +675,9 @@ public final class RedditPreparedPost {
 
 		final BetterSSB postListDescSb = new BetterSSB();
 
+//		SpannableStringBuilder for the Karma that goes between our up/downvote arrows
+		final BetterSSB karmaSb = new BetterSSB();
+
 		final int pointsCol;
 
 		final int score = computeScore();
@@ -722,7 +727,54 @@ public final class RedditPreparedPost {
 
 		postListDescSb.append(" (" + src.getDomain() + ")", 0);
 
+		karmaSb.append(String.valueOf(score), BetterSSB.BOLD | BetterSSB.FOREGROUND_COLOR, pointsCol, 0, 1f);
+
 		postListDescription = postListDescSb.get();
+		postKarma = karmaSb.get();
+	}
+
+	private void colorKarma(Context context) {
+		final int boldCol;
+		final int rrPostSubtitleUpvoteCol;
+		final int rrPostSubtitleDownvoteCol;
+
+		final TypedArray appearance = context.obtainStyledAttributes(new int[]{
+				R.attr.srPostSubtitleBoldCol,
+				R.attr.srPostSubtitleUpvoteCol,
+				R.attr.srPostSubtitleDownvoteCol
+		});
+
+		boldCol = appearance.getColor(0, 255);
+		rrPostSubtitleUpvoteCol = appearance.getColor(1, 255);
+		rrPostSubtitleDownvoteCol = appearance.getColor(2, 255);
+
+		appearance.recycle();
+
+		final BetterSSB karmaSB = new BetterSSB();
+
+		final int pointsCol;
+
+		final int score = computeScore();
+
+		if (isUpvoted()) {
+			pointsCol = rrPostSubtitleUpvoteCol;
+		} else if (isDownvoted()) {
+			pointsCol = rrPostSubtitleDownvoteCol;
+		} else {
+			pointsCol = boldCol;
+		}
+
+		karmaSB.append(String.valueOf(score), BetterSSB.BOLD | BetterSSB.FOREGROUND_COLOR, pointsCol, 0, 1f);
+
+		postKarma = karmaSB.get();
+	}
+
+	private void colorArrowUpvote() {
+
+	}
+
+	private void colorArrowDownvote() {
+
 	}
 
 	// lol, reddit api
@@ -1112,9 +1164,9 @@ public final class RedditPreparedPost {
 		}
 	}
 
-    public interface PostSelectionListener {
-        void onPostSelected(RedditPreparedPost post);
+	public interface PostSelectionListener {
+		void onPostSelected(RedditPreparedPost post);
 
-        void onPostCommentsSelected(RedditPreparedPost post);
-    }
+		void onPostCommentsSelected(RedditPreparedPost post);
+	}
 }

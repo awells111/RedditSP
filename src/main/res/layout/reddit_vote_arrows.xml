@@ -12,6 +12,13 @@
 			android:layout_height="0dp"
 			android:layout_weight="1"/>
 
+	<TextView
+			android:id="@+id/reddit_post_karma"
+			android:text="0.0"
+			android:layout_width="wrap_content"
+			android:layout_height="0dp"
+			android:layout_weight="1"/>
+
 	<ImageView
 			android:id="@+id/reddit_post_downvote"
 			android:src="@drawable/action_downvote_light"

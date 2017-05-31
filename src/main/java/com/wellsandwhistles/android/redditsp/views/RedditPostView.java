@@ -39,6 +39,7 @@ public final class RedditPostView extends FlingableItemView implements RedditPre
 
 	private final ImageView thumbnailView, overlayIcon;
 	private final ImageView upvoteArrow, downvoteArrow;
+	private final TextView postKarma;
 
 	private final LinearLayout mOuterView;
 	private final LinearLayout commentsButton;
@@ -196,6 +197,7 @@ public final class RedditPostView extends FlingableItemView implements RedditPre
 		upvoteArrow = (ImageView) rootView.findViewById(R.id.reddit_post_upvote);
 		downvoteArrow = (ImageView) rootView.findViewById(R.id.reddit_post_downvote);
 
+
 		upvoteArrow.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View view) {
@@ -233,6 +235,8 @@ public final class RedditPostView extends FlingableItemView implements RedditPre
 
 		title = (TextView) rootView.findViewById(R.id.reddit_post_title);
 		subtitle = (TextView) rootView.findViewById(R.id.reddit_post_subtitle);
+		postKarma = (TextView) rootView.findViewById(R.id.reddit_post_karma);
+
 		commentsButton = (LinearLayout) rootView.findViewById(R.id.reddit_post_comments_button);
 		commentsText = (TextView)commentsButton.findViewById(R.id.reddit_post_comments_text);
 
@@ -245,6 +249,7 @@ public final class RedditPostView extends FlingableItemView implements RedditPre
 
 		title.setTextSize(TypedValue.COMPLEX_UNIT_PX, title.getTextSize() * fontScale);
 		subtitle.setTextSize(TypedValue.COMPLEX_UNIT_PX, subtitle.getTextSize() * fontScale);
+		postKarma.setTextSize(TypedValue.COMPLEX_UNIT_PX, postKarma.getTextSize() * fontScale);
 
 		final SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
 		mLeftFlingPref = PrefsUtility.pref_behaviour_fling_post_left(context, sharedPreferences);
@@ -318,24 +323,24 @@ public final class RedditPostView extends FlingableItemView implements RedditPre
 		}
 
 		subtitle.setText(post.postListDescription);
+		postKarma.setText(post.postKarma);
 
 		boolean overlayVisible = true;
 
 		if(post.isSaved()) {
 			overlayIcon.setImageResource(R.drawable.ic_action_star_filled_dark);
-
 		} else if(post.isHidden()) {
 			overlayIcon.setImageResource(R.drawable.ic_action_cross_dark);
+		}
 
-		} else if(post.isUpvoted()) {
+		if(post.isUpvoted()) {
 			upvoteArrow.setColorFilter(mActivity.getResources().getColor(R.color.upvoteColor));
 			overlayIcon.setImageResource(R.drawable.action_upvote_dark);
-
 		} else if(post.isDownvoted()) {
 			downvoteArrow.setColorFilter(mActivity.getResources().getColor(R.color.downvoteColor));
 			overlayIcon.setImageResource(R.drawable.action_downvote_dark);
-
 		} else {
+
 			overlayVisible = false;
 		}
 
