@@ -27,21 +27,18 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.wellsandwhistles.android.redditsp.R;
-import com.wellsandwhistles.android.redditsp.cache.CacheManager;
 import com.wellsandwhistles.android.redditsp.common.General;
 import com.wellsandwhistles.android.redditsp.common.LinkHandler;
-import com.wellsandwhistles.android.redditsp.reddit.prepared.RedditParsedPost;
 import com.wellsandwhistles.android.redditsp.reddit.prepared.RedditPreparedPost;
 import com.wellsandwhistles.android.redditsp.reddit.things.RedditPost;
 import com.wellsandwhistles.android.redditsp.reddit.url.RedditURLParser;
-import com.wellsandwhistles.android.redditsp.views.RedditPostView;
 import com.wellsandwhistles.android.redditsp.views.WebViewFixed;
 
 import java.util.Locale;
 import java.util.Timer;
 import java.util.TimerTask;
 
-public class WebViewFragment extends Fragment implements RedditPostView.PostSelectionListener {
+public class WebViewFragment extends Fragment implements RedditPreparedPost.PostSelectionListener {
 
 	private AppCompatActivity mActivity;
 
@@ -94,26 +91,6 @@ public class WebViewFragment extends Fragment implements RedditPostView.PostSele
 		CookieSyncManager.createInstance(mActivity);
 
 		outer = (FrameLayout) inflater.inflate(R.layout.web_view_fragment, null);
-
-		final RedditPost src_post = getArguments().getParcelable("post");
-		final RedditPreparedPost post;
-
-		if (src_post != null) {
-
-			final RedditParsedPost parsedPost = new RedditParsedPost(src_post, false);
-
-			post = new RedditPreparedPost(
-					mActivity,
-					CacheManager.getInstance(mActivity),
-					0,
-					parsedPost,
-					-1,
-					false,
-					false);
-
-		} else {
-			post = null;
-		}
 
 		webView = (WebViewFixed) outer.findViewById(R.id.web_view_fragment_webviewfixed);
 		final FrameLayout loadingViewFrame = (FrameLayout) outer.findViewById(R.id.web_view_fragment_loadingview_frame);
@@ -315,12 +292,13 @@ public class WebViewFragment extends Fragment implements RedditPostView.PostSele
 	}
 
 	public void onPostSelected(final RedditPreparedPost post) {
-		((RedditPostView.PostSelectionListener) mActivity).onPostSelected(post);
+		((RedditPreparedPost.PostSelectionListener) mActivity).onPostSelected(post);
 	}
 
 	public void onPostCommentsSelected(final RedditPreparedPost post) {
-		((RedditPostView.PostSelectionListener) mActivity).onPostCommentsSelected(post);
+		((RedditPreparedPost.PostSelectionListener) mActivity).onPostCommentsSelected(post);
 	}
+
 
 	public String getCurrentUrl() {
 		return (currentUrl != null) ? currentUrl : mUrl;
