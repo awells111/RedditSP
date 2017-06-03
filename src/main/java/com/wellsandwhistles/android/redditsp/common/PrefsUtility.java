@@ -290,7 +290,7 @@ public final class PrefsUtility {
 	}
 
 	public static boolean pref_behaviour_notifications(final Context context, final SharedPreferences sharedPreferences) {
-		return getBoolean(R.string.pref_behaviour_notifications_key, true, context, sharedPreferences);
+		return getBoolean(R.string.pref_behaviour_notifications_key, false, context, sharedPreferences);
 	}
 
 	public static boolean pref_behaviour_enable_swipe_refresh(final Context context, final SharedPreferences sharedPreferences) {
