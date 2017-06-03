@@ -17,7 +17,7 @@ public abstract class APIResponseHandler {
 	protected final AppCompatActivity context;
 
 	public enum APIFailureType {
-		INVALID_USER, BAD_CAPTCHA, NOTALLOWED, SUBREDDIT_REQUIRED, URL_REQUIRED, UNKNOWN, TOO_FAST, TOO_LONG
+		INVALID_USER, NOTALLOWED, SUBREDDIT_REQUIRED, URL_REQUIRED, UNKNOWN, TOO_FAST, TOO_LONG
 	}
 
 	private APIResponseHandler(AppCompatActivity context) {
@@ -75,78 +75,6 @@ public abstract class APIResponseHandler {
 		}
 
 		protected abstract void onSuccess();
-	}
-
-	public static abstract class NewCaptchaResponseHandler extends APIResponseHandler {
-
-		protected NewCaptchaResponseHandler(AppCompatActivity context) {
-			super(context);
-		}
-
-		public final void notifySuccess(final String captchaId) {
-			try {
-				onSuccess(captchaId);
-			} catch(Throwable t1) {
-				try {
-					onCallbackException(t1);
-				} catch(Throwable t2) {
-					BugReportActivity.addGlobalError(new SRError(null, null, t1));
-					BugReportActivity.handleGlobalError(context, t2);
-				}
-			}
-		}
-
-		protected abstract void onSuccess(String captchaId);
-	}
-
-	public static abstract class SubredditResponseHandler extends APIResponseHandler {
-
-		protected SubredditResponseHandler(AppCompatActivity context) {
-			super(context);
-		}
-
-		public final void notifySuccess(final List<RedditSubreddit> result, final long timestamp) {
-			try {
-				onSuccess(result, timestamp);
-			} catch(Throwable t1) {
-				try {
-					onCallbackException(t1);
-				} catch(Throwable t2) {
-					BugReportActivity.addGlobalError(new SRError(null, null, t1));
-					BugReportActivity.handleGlobalError(context, t2);
-				}
-			}
-		}
-
-		public final void notifyDownloadNecessary() {
-			try {
-				onDownloadNecessary();
-			} catch(Throwable t1) {
-				try {
-					onCallbackException(t1);
-				} catch(Throwable t2) {
-					BugReportActivity.addGlobalError(new SRError(null, null, t1));
-					BugReportActivity.handleGlobalError(context, t2);
-				}
-			}
-		}
-
-		public final void notifyDownloadStarted() {
-			try {
-				onDownloadStarted();
-			} catch(Throwable t1) {
-				try {
-					onCallbackException(t1);
-				} catch(Throwable t2) {
-					BugReportActivity.addGlobalError(new SRError(null, null, t1));
-					BugReportActivity.handleGlobalError(context, t2);
-				}
-			}
-		}
-
-		protected abstract void onDownloadNecessary();
-		protected abstract void onDownloadStarted();
-		protected abstract void onSuccess(List<RedditSubreddit> result, long timestamp);
 	}
 
 	public static abstract class UserResponseHandler extends APIResponseHandler {

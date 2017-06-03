@@ -480,7 +480,7 @@ public class RedditSubredditSubscriptionManager {
                             output.add(subreddit.getCanonicalName());
                         }
 
-                        RedditSubredditManager.getInstance(context, user).offerRawSubredditData(toWrite, timestamp);
+                        RedditSubredditManager.getInstance(context, user).offerRawSubredditData(toWrite);
                         final String receivedAfter = redditListing.getString("after");
                         if(receivedAfter != null && type != RedditSubredditManager.SubredditListType.MOST_POPULAR) {
 

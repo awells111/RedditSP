@@ -771,8 +771,8 @@ public class PostListingFragment extends SRFragment
 						downloadedPosts.add(new RedditPostListItem(
 								preparedPost,
 								PostListingFragment.this,
-								activity,
-								mPostListingURL));
+								activity
+						));
 
 						mPostCount++;
 						mPostRefreshCount.decrementAndGet();

@@ -535,9 +535,6 @@ public final class RedditAPI {
 				if(Constants.Reddit.isApiErrorUser(response.asString()))
 					return APIResponseHandler.APIFailureType.INVALID_USER;
 
-				if(Constants.Reddit.isApiErrorCaptcha(response.asString()))
-					return APIResponseHandler.APIFailureType.BAD_CAPTCHA;
-
 				if(Constants.Reddit.isApiErrorNotAllowed(response.asString()))
 					return APIResponseHandler.APIFailureType.NOTALLOWED;
 

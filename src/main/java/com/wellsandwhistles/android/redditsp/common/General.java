@@ -352,11 +352,6 @@ public final class General {
 				message = R.string.error_403_message;
 				break;
 
-			case BAD_CAPTCHA:
-				title = R.string.error_bad_captcha_title;
-				message = R.string.error_bad_captcha_message;
-				break;
-
 			case NOTALLOWED:
 				title = R.string.error_403_title;
 				message = R.string.error_403_message;
@@ -483,8 +478,6 @@ public final class General {
 		return result.toString();
 	}
 
-	// Adapted from Android:
-	// http://grepcode.com/file/repository.grepcode.com/java/ext/com.google.android/android/4.1.1_r1/android/net/Uri.java?av=f
 	public static Set<String> getUriQueryParameterNames(final Uri uri) {
 
 		if(uri.isOpaque()) {

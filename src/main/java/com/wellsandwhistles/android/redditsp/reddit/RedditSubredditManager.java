@@ -28,7 +28,7 @@ import java.util.concurrent.atomic.AtomicLong;
 
 public class RedditSubredditManager {
 
-	public void offerRawSubredditData(Collection<RedditSubreddit> toWrite, long timestamp) {
+	public void offerRawSubredditData(Collection<RedditSubreddit> toWrite) {
 		subredditCache.performWrite(toWrite);
 	}
 

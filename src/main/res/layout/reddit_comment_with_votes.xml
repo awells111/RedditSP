@@ -30,7 +30,8 @@
 					android:layout_width="10dp"
 					android:layout_height="match_parent"/>
 
-			<include layout="@layout/reddit_vote_arrows"/>
+			<!--//TODO implement arrows-->
+<!--			<include layout="@layout/reddit_vote_arrows"/>-->
 
 			<LinearLayout
 					android:layout_width="match_parent"

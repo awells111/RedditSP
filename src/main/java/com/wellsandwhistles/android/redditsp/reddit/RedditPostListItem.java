@@ -22,8 +22,7 @@ public class RedditPostListItem extends GroupedRecyclerViewAdapter.Item {
 	public RedditPostListItem(
 			final RedditPreparedPost post,
 			final PostListingFragment fragment,
-			final AppCompatActivity activity,
-			final RedditURLParser.RedditURL postListingUrl) {
+			final AppCompatActivity activity) {
 
 		mFragment = fragment;
 		mActivity = activity;
