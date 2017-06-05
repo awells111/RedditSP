@@ -582,15 +582,9 @@ public class PostListingFragment extends SRFragment
 				final PrefsUtility.CachePrecacheImages imagePrecachePref
 						= PrefsUtility.cache_precache_images(activity, mSharedPreferences);
 
-				final PrefsUtility.CachePrecacheComments commentPrecachePref
-						= PrefsUtility.cache_precache_comments(activity, mSharedPreferences);
-
 				final boolean precacheImages = (imagePrecachePref == PrefsUtility.CachePrecacheImages.ALWAYS
 						|| (imagePrecachePref == PrefsUtility.CachePrecacheImages.WIFIONLY && isConnectionWifi))
 						&& !General.isCacheDiskFull(activity);
-
-				final boolean precacheComments = (commentPrecachePref == PrefsUtility.CachePrecacheComments.ALWAYS
-						|| (commentPrecachePref == PrefsUtility.CachePrecacheComments.WIFIONLY && isConnectionWifi));
 
 				final boolean subredditFilteringEnabled =
 						mPostListingURL.pathType() == RedditURLParser.SUBREDDIT_POST_LISTING_URL
@@ -601,7 +595,6 @@ public class PostListingFragment extends SRFragment
 				final List<String> blockedSubreddits = PrefsUtility.pref_blocked_subreddits(activity, mSharedPreferences); // Grab this so we don't have to pull from the prefs every post
 
 				Log.i(TAG, "Precaching images: " + (precacheImages ? "ON" : "OFF"));
-				Log.i(TAG, "Precaching comments: " + (precacheComments ? "ON" : "OFF"));
 
 				final CacheManager cm = CacheManager.getInstance(activity);
 
@@ -642,53 +635,6 @@ public class PostListingFragment extends SRFragment
 								timestamp,
 								showSubredditName,
 								downloadThisThumbnail);
-
-						if (precacheComments) {
-
-							final CommentListingController controller = new CommentListingController(
-									PostCommentListingURL.forPostId(preparedPost.src.getIdAlone()),
-									activity);
-
-							CacheManager.getInstance(activity).makeRequest(new CacheRequest(
-									General.uriFromString(controller.getUri().toString()),
-									RedditAccountManager.getInstance(activity).getDefaultAccount(),
-									null,
-									Constants.Priority.COMMENT_PRECACHE,
-									positionInList,
-									DownloadStrategyIfNotCached.INSTANCE,
-									Constants.FileType.COMMENT_LIST,
-									DOWNLOAD_QUEUE_REDDIT_API,
-									false, // Don't parse the JSON
-									false,
-									activity) {
-
-								@Override
-								protected void onCallbackException(final Throwable t) {
-								}
-
-								@Override
-								protected void onDownloadNecessary() {
-								}
-
-								@Override
-								protected void onDownloadStarted() {
-								}
-
-								@Override
-								protected void onFailure(final @CacheRequest.RequestFailureType int type, final Throwable t, final Integer status, final String readableMessage) {
-									Log.e(TAG, "Failed to precache " + url.toString() + "(RequestFailureType code: " + type + ")");
-								}
-
-								@Override
-								protected void onProgress(final boolean authorizationInProgress, final long bytesRead, final long totalBytes) {
-								}
-
-								@Override
-								protected void onSuccess(final CacheManager.ReadableCacheFile cacheFile, final long timestamp, final UUID session, final boolean fromCache, final String mimetype) {
-									Log.i(TAG, "Successfully precached " + url.toString());
-								}
-							});
-						}
 
 						LinkHandler.getImageInfo(activity, parsedPost.getUrl(), Constants.Priority.IMAGE_PRECACHE, positionInList, new GetImageInfoListener() {
 

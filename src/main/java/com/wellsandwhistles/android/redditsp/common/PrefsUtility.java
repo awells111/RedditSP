@@ -504,17 +504,6 @@ public final class PrefsUtility {
 		NEVER, WIFIONLY, ALWAYS
 	}
 
-	public static CachePrecacheComments cache_precache_comments(final Context context, final SharedPreferences sharedPreferences) {
-
-		if(!getBoolean(R.string.pref_cache_precache_comments_key, true, context,  sharedPreferences)) {
-			return CachePrecacheComments.NEVER;
-		} else if(getBoolean(R.string.pref_cache_precache_comments_wifionly_key, false, context, sharedPreferences)) {
-			return CachePrecacheComments.WIFIONLY;
-		} else {
-			return CachePrecacheComments.ALWAYS;
-		}
-	}
-
 	///////////////////////////////
 	// pref_menus
 	///////////////////////////////
