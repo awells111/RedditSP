@@ -12,6 +12,7 @@
         <Preference android:title="@string/pref_cache_location_title"
                     android:key="@string/pref_cache_location_key"/>
 
+<!--		todo check this out-->
 		<ListPreference android:title="@string/pref_cache_rerequest_postlist_age_title"
 						android:key="@string/pref_cache_rerequest_postlist_age_key"
 						android:entries="@array/pref_cache_autorefresh_age"
@@ -22,13 +23,8 @@
 
     <PreferenceCategory android:title="@string/pref_cache_precache_images_header">
 
-    <CheckBoxPreference android:title="@string/pref_cache_precache_images_title"
-                        android:key="@string/pref_cache_precache_images_key"
-                        android:defaultValue="true"/>
-
     <CheckBoxPreference android:title="@string/pref_cache_precache_images_wifionly_title"
                         android:key="@string/pref_cache_precache_images_wifionly_key"
-                        android:dependency="@string/pref_cache_precache_images_key"
                         android:defaultValue="true"/>
 
     </PreferenceCategory>

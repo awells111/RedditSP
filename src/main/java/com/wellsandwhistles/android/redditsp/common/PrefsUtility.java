@@ -484,24 +484,16 @@ public final class PrefsUtility {
 	// pref_cache_precache_images
 
 	public enum CachePrecacheImages {
-		NEVER, WIFIONLY, ALWAYS
+		WIFIONLY, ALWAYS
 	}
 
 	public static CachePrecacheImages cache_precache_images(final Context context, final SharedPreferences sharedPreferences) {
 
-		if(!getBoolean(R.string.pref_cache_precache_images_key, true, context,  sharedPreferences)) {
-			return CachePrecacheImages.NEVER;
-		} else if(getBoolean(R.string.pref_cache_precache_images_wifionly_key, true, context, sharedPreferences)) {
+		if(getBoolean(R.string.pref_cache_precache_images_wifionly_key, true, context, sharedPreferences)) {
 			return CachePrecacheImages.WIFIONLY;
 		} else {
 			return CachePrecacheImages.ALWAYS;
 		}
-	}
-
-	// pref_cache_precache_comments
-
-	public enum CachePrecacheComments {
-		NEVER, WIFIONLY, ALWAYS
 	}
 
 	///////////////////////////////
