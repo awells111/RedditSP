@@ -651,6 +651,7 @@ public class PostListingFragment extends SRFragment
 
 								if (!precacheImages) return;
 
+								//todo alexw why not precache huge images?
 								// Don't precache huge images
 								if (info.size != null && info.size > 15 * 1024 * 1024) {
 									Log.i(TAG, String.format(

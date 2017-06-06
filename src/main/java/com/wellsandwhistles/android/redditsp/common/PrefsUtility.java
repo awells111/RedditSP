@@ -448,7 +448,7 @@ public final class PrefsUtility {
 	public static long pref_cache_rerequest_postlist_age_ms(final Context context, final SharedPreferences sharedPreferences) {
 		try {
 			final int hours = Integer.parseInt(
-					getString(R.string.pref_cache_rerequest_postlist_age_key, "1", context, sharedPreferences));
+					getString(R.string.pref_cache_rerequest_postlist_age_key, "0", context, sharedPreferences));
 
 			return General.hoursToMs(hours);
 

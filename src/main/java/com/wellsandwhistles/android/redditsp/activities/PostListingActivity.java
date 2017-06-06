@@ -69,11 +69,28 @@ public class PostListingActivity extends RefreshableActivity
 
 			controller = new PostListingController((PostListingURL)url, this);
 
+			Bundle fragmentSavedInstanceState = null;
+
+			if(savedInstanceState != null) {
+
+				if(savedInstanceState.containsKey(SAVEDSTATE_SESSION)) {
+					controller.setSession(UUID.fromString(savedInstanceState.getString(SAVEDSTATE_SESSION)));
+				}
+
+				if(savedInstanceState.containsKey(SAVEDSTATE_SORT)) {
+					controller.setSort(PostSort.valueOf(
+							savedInstanceState.getString(SAVEDSTATE_SORT)));
+				}
+
+				if(savedInstanceState.containsKey(SAVEDSTATE_FRAGMENT)) {
+					fragmentSavedInstanceState = savedInstanceState.getBundle(SAVEDSTATE_FRAGMENT);
+				}
+			}
+
 			setTitle(url.humanReadableName(this, false));
 
 			setBaseActivityContentView(R.layout.main_single);
-
-			doRefresh(RefreshableFragment.POSTS, false, null);
+			doRefresh(RefreshableFragment.POSTS, false, fragmentSavedInstanceState);
 
 		} else {
 			throw new RuntimeException("Nothing to show!");
